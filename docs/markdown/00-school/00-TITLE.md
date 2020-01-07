@@ -1,8 +1,8 @@
-<!-- .slide: class="first-slide" sfeir-level="2" sfeir-techno="xxx" -->
+<!-- .slide: class="first-slide" sfeir-level="2" sfeir-techno="docker" -->
 
 # **Welcome to Sfeir School**
 
-## **XXX 200**
+## **Docker 200**
 
 ##==##
 
