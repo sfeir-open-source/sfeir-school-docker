@@ -1,8 +1,8 @@
-<!-- .slide: class="first-slide" sfeir-level="2" sfeir-techno="xxx" -->
+<!-- .slide: class="first-slide" sfeir-level="2" sfeir-techno="docker" -->
 
-# **Welcome to Sfeir School**
+# **Bienvenue à la Sfeir School**
 
-## **XXX 200**
+## **Docker 200**
 
 ##==##
 
@@ -15,6 +15,33 @@
 
 ##==##
 
+<!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
+
+# Préparation de la formation
+
+<div class="center">
+  <img src="./assets/images/icon/terminal.png" alt="Terminal">
+</div>
+
+```docker
+docker container run -ti --rm busybox echo Hello world
+```
+
+```bash
+git clone "https://github.com/zbbfufu/docker-sfeirschool-2018.git"
+cd docker-sfeirschool-2018
+```
+
+<p class="center">
+Créez un compte sur le Docker Hub
+<br><br>
+<a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">https://hub.docker.com/</a>
+<br><br>
+<img src="./assets/images/docker.png" alt="Docker">
+</p>
+
+##==##
+
 # Déroulement de la formation
 
 <p class="center">
@@ -24,6 +51,8 @@ Tour de table ...
 </p>
 <br><br>
 
-**Feuille de présence (obligatoire)** <!-- .element: class="center" -->
-
-https://bit.ly/sfeir-xxx <!-- .element: class="center" -->
+<p class="center">
+**Feuille de présence (obligatoire)**
+<br><br>
+https://bit.ly/sfeir-docker-202001
+</p>

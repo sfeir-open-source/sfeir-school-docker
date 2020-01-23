@@ -2,8 +2,8 @@
 
 # Présentation
 
-![speaker](./assets/images/jf.jpg)
-![badge](./assets/images/gde.png)
+![speaker](./assets/images/speaker/jf.jpg)
+![badge](./assets/images/badge/gde.png)
 
 ## Jean-François Garreau
 
