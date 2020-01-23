@@ -1,7 +1,7 @@
 <!-- .slide: class="transition-white sfeir-bg-blue" -->
 
 # Mise en oeuvre
-## Bonus 3 <!-- .element: class="exo" style="color: white;" -->
+## Bonus 3 <!-- .element: class="bonus" style="color: white;" -->
 
 ##--##
 

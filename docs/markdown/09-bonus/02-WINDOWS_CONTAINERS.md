@@ -1,7 +1,7 @@
 <!-- .slide: class="transition-white sfeir-bg-blue" -->
 
 # Windows Containers
-## Bonus 2 <!-- .element: class="exo" style="color: white;" -->
+## Bonus 2 <!-- .element: class="bonus" style="color: white;" -->
 
 ##--##
 

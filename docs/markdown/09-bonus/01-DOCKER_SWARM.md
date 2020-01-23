@@ -1,7 +1,7 @@
 <!-- .slide: class="transition-white sfeir-bg-blue" -->
 
 # Docker Swarm
-## Bonus 1 <!-- .element: class="exo" style="color: white;" -->
+## Bonus 1 <!-- .element: class="bonus" style="color: white;" -->
 
 ##--##
 

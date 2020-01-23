@@ -31,7 +31,7 @@
     }
 
     .center {
-      text-align: center;
+      text-align: center !important;
     }
 
     .left {
@@ -67,14 +67,22 @@
       content: "\25CB" !important;
     }
 
-    .exo {
-      position: fixed;
+    .exo, .bonus {
+      position: absolute;
       border-radius: 40px 10px 40px 10px;
       background-color: var(--sfeir-blue);
       color: white;
       padding: 1rem 2rem;
+    }
+
+    .exo {
       top: 0;
       left: 0;
+    }
+
+    .bonus {
+      top: 40px;
+      left: 40px;
     }
 
     .danger {

@@ -15,11 +15,13 @@
 
 ##==##
 
-<!-- .slide: class="with-code big-code" -->
+<!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
 
 # Préparation de la formation
 
-![center](./assets/images/icon/terminal.png)
+<div class="center">
+  <img src="./assets/images/icon/terminal.png" alt="Terminal">
+</div>
 
 ```docker
 docker container run -ti --rm busybox echo Hello world
@@ -30,11 +32,13 @@ git clone "https://github.com/zbbfufu/docker-sfeirschool-2018.git"
 cd docker-sfeirschool-2018
 ```
 
+<p class="center">
 Créez un compte sur le Docker Hub
-
-https://hub.docker.com/ <!-- .element: class="center" target="_blank" rel="noopener noreferrer" -->
-
-![center](./assets/images/docker.png)
+<br><br>
+<a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">https://hub.docker.com/</a>
+<br><br>
+<img src="./assets/images/docker.png" alt="Docker">
+</p>
 
 ##==##
 
@@ -47,6 +51,8 @@ Tour de table ...
 </p>
 <br><br>
 
-**Feuille de présence (obligatoire)** <!-- .element: class="center" -->
-
-https://bit.ly/sfeir-docker-202001 <!-- .element: class="center" -->
+<p class="center">
+**Feuille de présence (obligatoire)**
+<br><br>
+https://bit.ly/sfeir-docker-202001
+</p>

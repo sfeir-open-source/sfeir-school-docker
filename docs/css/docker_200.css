@@ -23,7 +23,7 @@
   max-height: 1000px !important; }
 
 .reveal .slides section .center {
-  text-align: center; }
+  text-align: center !important; }
 
 .reveal .slides section .left {
   float: left;
@@ -52,14 +52,20 @@
 .reveal .slides section ul > li > ul > li::before {
   content: "\25CB" !important; }
 
-.reveal .slides section .exo {
-  position: fixed;
+.reveal .slides section .exo, .reveal .slides section .bonus {
+  position: absolute;
   border-radius: 40px 10px 40px 10px;
   background-color: var(--sfeir-blue);
   color: white;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem; }
+
+.reveal .slides section .exo {
   top: 0;
   left: 0; }
+
+.reveal .slides section .bonus {
+  top: 40px;
+  left: 40px; }
 
 .reveal .slides section .danger {
   color: var(--red); }

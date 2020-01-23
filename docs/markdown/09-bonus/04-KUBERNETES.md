@@ -1,7 +1,7 @@
 <!-- .slide: class="transition-white sfeir-bg-blue" -->
 
 # Kubernetes
-## Bonus 4 <!-- .element: class="exo" style="color: white;" -->
+## Bonus 4 <!-- .element: class="bonus" style="color: white;" -->
 
 ##--##
 
