@@ -22,7 +22,7 @@
 ![center](./assets/images/icon/terminal.png)
 
 ```docker
-docker run -ti --rm busybox echo Hello world
+docker container run -ti --rm busybox echo Hello world
 ```
 
 ```bash
