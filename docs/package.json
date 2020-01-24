@@ -8,6 +8,7 @@
     "sass-once": "node-sass ./scss/xxx.scss -o ./css/ --source-map=true ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server --port=4242 --open=\"./index.html\" --watch=\"markdown/\"",
+    "dep": "mkdir -p libs/sfeir-school-theme && cp -R node_modules/sfeir-school-theme/dist libs/sfeir-school-theme",
     "start": "parallelshell \"npm run serve\" \"npm run sass\""
   },
   "repository": {
