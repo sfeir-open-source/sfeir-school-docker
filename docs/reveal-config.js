@@ -7,10 +7,10 @@ Reveal.initialize({
     center: false,
     width: 1920,
     height: 1080,
-  
+
     theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
     transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
-  
+
     keyboard: {
       32: function() {
         var video = document.querySelector('.present video');
@@ -21,10 +21,10 @@ Reveal.initialize({
         }
       }
     },
-  
+
     slideNumber: 'c/t',
     showSlideNumber: 'speaker',
-  
+
     // Optional libraries used to extend on reveal.js
     dependencies: [
       {
@@ -60,7 +60,7 @@ Reveal.initialize({
         }
       },
       {
-        src: 'school-theme/js/reveal-notes.js',
+        src: './libs/revealjs/plugin/notes/notes.js',
         async: true,
         condition: function() {
           return !!document.body.classList;
@@ -70,4 +70,3 @@ Reveal.initialize({
       // { src: 'node_modules/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
     ]
   });
-  

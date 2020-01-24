@@ -20,6 +20,16 @@
 </div>
 </div>
 
+Notes:
+
+* Avantages de Docker :
+  * permet un partage des ressources efficace
+  * plus de simple pour gérer des environnements d’exécution variés
+
+* Avantages des full VMs :
+  * isolation GARANTIE puisqu’il n’y a aucune communications entre l'hôte et la machine virtuelle
+  * accès au matériel plus simple
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-5" -->
@@ -27,6 +37,38 @@
 # VM et Containers
 
 ![center](./assets/images/images_et_containers/vm_et_container.png) <!-- .element: width="100%" -->
+
+Notes:
+On peut mélanger les deux pour plus d’isolation (multi-tenant, ...)
+
+##--##
+
+# Docker sur
+# Toolbox / Docker4Win / Docker4Mac
+
+<div class="left">
+<div class="box">
+![center](./assets/images/images_et_containers/virtualbox.png)
+</div>
+</div>
+
+<div class="right">
+<div class="box">
+![center](./assets/images/images_et_containers/windows_docker.png)
+</div>
+</div>
+
+Notes:
+Dans ces 3 cas :
+
+* Linux + daemon Docker dans VM Linux,
+* client Docker sur l’OS de la machine (Windows, Mac)
+
+* Docker Toolbox : Virtualbox + docker-machine (gestion des VMs)
+
+* Docker4Win : Linux dans HyperV
+* Docker4Mac : hyperviseur xhyve sur primitives de virtualisation intégré dans macOS
+* Docker4(Win/Mac) : intégration réseau et montage de fs facilité
 
 ##--##
 
@@ -43,6 +85,18 @@
 ![h-450](./assets/images/images_et_containers/docker_brique_3.png)
 <div>
 
+Notes:
+
+* Images constituées de layers, notion d’héritage
+* Immutabilité des images / filesystem (fs) du container en lecture/écriture
+* Un fichier est modifié par recopie dans le layer du container ⇒ “Copy-On-Write”
+* Un fichier supprimé est matérialisé par un marqueur “suppression” dans le layer du container
+
+<span class="underline">exemple :</span>
+installation debian + emacs + apache
+les layers sont le résultat des fichiers écrits par des commandes apt-get, ...
+
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-5" -->
@@ -53,6 +107,19 @@
 * Performances
 
 ![center h-600](./assets/images/images_et_containers/saving-space.png)
+
+Notes:
+<span class="underline">Autre exemple :</span>
+
+* La modification à partir d’une image ubuntu:15.04 ne modifie pas l’image, mais en crée une nouvelle
+* La nouvelle image réutilise les layers de la précédente
+* la nouvelle layer ne pèse ici que 13 octets
+
+Espace disque : pas besoin de dupliquer le contenu binaire des images  
+⇒ versus VM où l’OS hôte est dupliqué.  
+⇒ Intéret en entreprise de définir une image de base communes à tous les projets.
+
+Performances : le mapping des fichiers de l’image stockée sur disque vers la mémoire vive n’est fait qu’une fois par image ⇒ binaire partagé en mémoire tant que non modifié
 
 ##--##
 
@@ -67,6 +134,19 @@
   * IBM Z Systems
 * "Manifestes" multi-OS (redirections)
 * Aujourd'hui, on ne parle que de containers Linux / x86
+
+Notes:
+Les commandes/processus sont exécutées sur l’OS (noyau/kernel) de hôte  
+⇒ il faut que les binaires de l’image soient compatibles  
+⇒ 4 architecture == 4 images différentes  
+
+Manifests:
+* lien vers les images pour chaque archi
+* stockée dans la registry
+* redirection suivie par le daemon docker
+* pas de commande manifests dans le client docker ⇒ third party tools
+
+La formation est orientée Linux / x86
 
 ##--##
 
@@ -96,6 +176,13 @@ exit
 docker container commit node_ctn mynodejs
 ```
 
+Notes:
+Objectif :  
+création d’une nouvelle image “commitée” à partir d’un container ⇒ aka. snapshot
+
+node_ctn = nom du container  
+mynodejs = nom de la nouvelle image
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
@@ -123,6 +210,11 @@ docker login
 docker image push <dockerHubId>/nodejs:1.0
 ```
 
+Notes:
+On peut associer plusieurs tags à une même image.  
+
+⇒ Voir slide suivant pour détails sur la composition du nom des images
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-5" -->
@@ -149,6 +241,16 @@ Exemples : <!-- .element: class="underline" -->
 <br/>
 <span class="warning">registry.sfeir.com:9000</span>/<span class="primary">taiebm</span>/<span class="danger">cordova</span>:<span class="success">5.0-test</span>
 </div>
+Notes:  
+Une image est identifiée de façon unique par son ID, le sha256 du contenu.  
+La plupart du temps les ids sont tronqués à l’affichage, comme dans git.  
+
+Pour simplifier l’accès aux images, on y applique des tags.  
+On peut avoir n tags ⇒ 1 image  
+On peut modifier un tag pour pointer sur une autre image (autre ID).  
+
+Le nom complet de l’image détermine le repository d’origine/destination.  
+Repository = le nom complet de l’image sans la version  
 
 ##--##
 
@@ -167,3 +269,6 @@ docker ${OBJECT} ${COMMAND}
 | <span class="warning">image</span>      | ls, pull, rm, prune, **push**, **tag** | <span class="dark">Manage images</span>     |
 | <span class="warning">container</span>  | ls, run, stop, rm, prune, **commit**   | <span class="dark">Manage containers</span> |
 |  |  |  |
+
+Notes:
+**en gras :** nouvelles commandes découvertes dans ce chapître

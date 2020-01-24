@@ -25,6 +25,15 @@
 ![center](./assets/images/bonus/docker-swarm/swarm_worker.png)
 <!-- .element: width="80%" -->
 
+Notes:
+Topologies classiques :
+
+* 1 manager / 3 workers (sans HA)
+* 3 managers / 5 workers (avec HA)
+* 5 managers / 12+ workers
+
+Testé sur des cluster de 2000~3000 noeuds
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-5" -->
@@ -42,6 +51,9 @@
 
 ![center](./assets/images/bonus/docker-swarm/swarm_infra.png)
 <!-- .element: width="70%" -->
+
+Notes:
+à faire avec docker-machine sur Virtualbox si RAM du host >= 4Go, sinon sur https://labs.play-with-docker.com
 
 ##--##
 
@@ -74,21 +86,24 @@ secrets:
 services:
   front:
     [...]
-back:
-  [...]
-  configs:
-    - appconfig
-  healthcheck:
-    test: 'curl http://localhost:3000'
-db:
-  image: couchdb:2.1
-  volumes:
-    - db_data:/opt/couchdb/data
-  networks:
-    - db_net
-  secrets:
-    - dbcreds
+  back:
+    [...]
+    configs:
+      - appconfig
+    healthcheck:
+      test: 'curl http://localhost:3000'
+  db:
+    [...]
 ```
+
+Notes:
+**TODO: vérifier fonctionnement “configs”**
+
+Compose v3 apporte le support de Docker Swarm et du déploiement de stacks.
+Il y a 2 modes de déploiement :
+
+* `docker-compose up`
+* `docker stack deploy -c docker-compose.yml <stackname>`
 
 ##--##
 
@@ -118,6 +133,12 @@ db:
         - node.hostname = "manager"
 ```
 
+Notes:
+Certaines clés de configuration sont ignorées selon le mode
+
+* `depends_on` est ignoré par le mode swarm. Il n’y a plus d’ordre de démarrage, c’est à l’application de gérer les `retry` de connexion.
+* toute la section `deploy` des services est spécifique à Swarm
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-5 with-code big-code" -->
@@ -134,6 +155,9 @@ docker-compose up
 Compose does not use swarm mode to deploy services to multiple nodes in a swarm. All containers will be scheduled on the current node.
 
 To deploy your application across the swarm, use <span class="danger">`docker stack deploy`</span>.
+
+Notes:
+`docker-compose up` sur un daemon swarm affiche un warning ⇒ il faut utiliser `stack deploy` pour profiter du cluster swarm
 
 ##--##
 

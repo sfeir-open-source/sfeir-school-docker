@@ -165,3 +165,8 @@ docker container run -d --name couchdb -v couchdb_vol:/opt/couchdb/data \
 
 * Rafraîchissez la page front
 * Vous pouvez maintenant supprimer tous les containers
+
+Notes:
+Vous pouvez expliquer ici comment mettre à jour une db (éventuellement à chaud) en démarrant un container sur le même volume.
+
+ATTENTION: couchdb ne supporte pas l’écriture concurrent, il faut absolument arrêter le premier container d’abord.
