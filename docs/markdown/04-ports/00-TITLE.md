@@ -3,7 +3,7 @@
 # Ports
 
 Notes:
-Jusqu’à maintenant l’intérraction des containers avec le reste du monde était limité à la ligne de commande interactive (`-it`) et les logs.
+Jusqu’à maintenant l'interaction des containers avec le reste du monde était limitée à la ligne de commande interactive (`-it`) et les logs.
 
 Dans ce chapitre nous verrons comment accéder aux processus de type serveur (web ou autre) depuis l’extérieur
 
