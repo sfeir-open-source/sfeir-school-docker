@@ -21,6 +21,11 @@
 ![center](./assets/images/bonus/k8s/k8s_cluster.png)
 <!-- .element: width="50%" -->
 
+Notes:
+
+* Un cluster est un ensemble de machines qui collaborent entre elles.
+* Sur Kubernetes, on distingue le master des noeuds (nodes).
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
@@ -29,6 +34,15 @@
 
 ![center](./assets/images/bonus/k8s/k8s_cluster_2.png)
 <!-- .element: width="50%" -->
+
+Notes:
+
+* Le master est responsable de d’essentiel de la partie “contrôle” (control plane) du cluster.
+* Les noeuds (nodes) sont responsable de l’exécution des applications.
+
+Les fonctions de master et de node sont habituellement déployées sur des machines différentes.
+
+En dev ces deux fonctions peuvent être déployées sur une unique machine (ex: Minikube)
 
 ##--##
 
@@ -39,6 +53,11 @@
 ![center](./assets/images/bonus/k8s/k8s_cluster_3.png)
 <!-- .element: width="50%" -->
 
+Notes:
+Les noeuds exécutent les applications packagées dans des containers regroupés dans des **Pods**.
+
+L’exécution des Pods est gérée par les **kubelet**.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
@@ -47,6 +66,15 @@
 
 ![center](./assets/images/bonus/k8s/k8s_pods.png)
 <!-- .element: width="100%" -->
+
+Notes:
+Pod :
+
+* 1 ou plusieurs containers
+  * en général un seul
+* partageant :
+  * une seule IP
+  * un ou plusieurs volumes
 
 ##--##
 
@@ -78,6 +106,37 @@ spec:
 
 ![center](./assets/images/bonus/k8s/k8s_objects.png)
 <!-- .element: width="90%" -->
+
+Notes:
+**Objectif du slide :** premier aperçu des objets Kubernetes. **Ne pas détailler plus que les commentaires ci-dessous !**
+
+On parle d’objets Kubernetes, de *resources*.
+Chaque ressource représente une API.
+
+ReplicaSet :
+
+* maintient le nombre demandé de pods identiques
+* la plupart du temps créé par le Deployment
+
+Deployment :
+
+* gère le cycle de vie des pods : versions, mise à jour continue (sans interruption)
+
+Service :
+
+* load-balancer interne vers un ensemble de pods
+* accessible par IP ou par dns interne
+
+Ingress :
+
+* Point d’entrée HTTP(S)
+* routage par Path ou par Virtualhost
+
+Namespace :
+
+* pour isoler des ressources
+
+On reverra plus en détails ces objets et d’autres : ConfigMap, DaemonSet, Job, ...
 
 ##--##
 

@@ -29,6 +29,12 @@ ENTRYPOINT node
 CMD server.js
 ```
 
+Notes:
+https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/  
+The main purpose of a CMD is to provide defaults for an executing container. These defaults can include an executable, or they can omit the executable, in which case you must specify an ENTRYPOINT instruction as well.
+
+https://blog.codeship.com/3-different-ways-to-provide-docker-build-context/
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
@@ -41,6 +47,30 @@ CMD server.js
   * **exécution** de l’instruction (ce qui déclenche le Copy-On-Write)
   * **commit** de l’état du container pour créer une nouvelle image transitive
   * **rm** du container intermédiaire
+
+Notes:
+Exemple d’une stack docker build
+
+```dockerfile
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM busybox
+ ---> d8233ab899d4
+Step 2/4 : ARG CONT_IMG_VER
+ ---> Running in 1e56aa344f65
+Removing intermediate container 1e56aa344f65
+ ---> 3a8255d58f7a
+Step 3/4 : ENV CONT_IMG_VER ${CONT_IMG_VER:-v1.0.0}
+ ---> Running in f40cdd5a551a
+Removing intermediate container f40cdd5a551a
+ ---> b80dbb9af46d
+Step 4/4 : RUN echo $CONT_IMG_VER
+ ---> Running in 15966b838883
+v1.0.0
+Removing intermediate container 15966b838883
+ ---> 40a0d16a7d2a
+Successfully built 40a0d16a7d2a
+Successfully tagged test-arg:latest
+```
 
 ##--##
 
@@ -87,6 +117,12 @@ docker build --no-cache=true
   * **commit** de l’état du container pour créer une nouvelle image transitive
   * le check du cache ne s’effectue pas sur les fichiers à l’intérieur du container
 
+Notes:
+* Starting with a parent image that is already in the cache, the next instruction is compared against all child images derived from that base image to see if one of them was built using the exact same instruction. If not, the cache is invalidated.
+* In most cases, simply comparing the instruction in the Dockerfile with one of the child images is sufficient. However, certain instructions require more examination and explanation.
+
+Once the cache is invalidated, all subsequent Dockerfile commands generate new images and the cache is not used.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
@@ -99,6 +135,18 @@ docker build --no-cache=true
 ```dockerfile
 ARG  CODE_VERSION=latest
 FROM base:${CODE_VERSION}
+```
+
+Notes:
+L’instruction ARG doit se situer avant le FROM dans ce cas et ne peut être utilisée que par FROM.
+
+```dockerfile
+ARG  CODE_VERSION=latest
+FROM base:${CODE_VERSION}
+CMD  /code/run-app
+
+FROM extras:${CODE_VERSION}
+CMD  /code/run-extras
 ```
 
 ##--##
@@ -141,6 +189,9 @@ LABEL version=1.0.0
 docker inspect image
 ```
 
+Notes:
+Si le LABEL contient des espacements, il faut utiliser des quotes / backslash comme on le ferait dans une ligne de commande.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
@@ -165,6 +216,10 @@ Ils doivent exister au préalable
 ```dockerfile
 COPY --chown=<user>:<group> <src> <dest>
 ```
+
+Notes:
+* COPY permets de copier uniquement des fichiers locaux vers le container.
+* ADD lui permet de faire ceci ainsi que de dézipper directement le contenu d’un tar dans le container voir même de récupérer un fichier à distance.
 
 ##--##
 
@@ -199,6 +254,9 @@ EXPOSE 80/udp
 docker container run --name couchdb1 -d -p 5984:5984 couchdb:2.1
 ```
 
+Notes:
+en utilisant l’option `--publish-all` lors de l'instanciation d’un container, on peut binder tous les ports exposés sur des ports aléatoires du host
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
@@ -211,6 +269,11 @@ docker container run --name couchdb1 -d -p 5984:5984 couchdb:2.1
 ```dockerfile
 VOLUME /myVolume
 ```
+
+Notes:
+Attention les volumes utilisés dans les Dockerfile sont du type “anonyme”
+
+Changing the volume from within the Dockerfile: If any build steps change the data within the volume after it has been declared, those changes will be discarded.
 
 ##--##
 
@@ -283,6 +346,12 @@ ENTRYPOINT [“top”, “-b”]
 CMD [“-c”]
 ```
 
+Notes:
+Rappeler qu’un container sans processus en foreground = un container qui s’arrête
+
+Ouvrir la page https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact  
+pour les interactions entre les deux instructions
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
@@ -323,6 +392,9 @@ docker image push <dockerId>/docker-sfeir-back:1.0
 * Objectif de minimiser la taille d’une image
 * Une application devrait donc contenir uniquement son binaire et ses dépendances pour s'exécuter
 
+Notes:
+Comment construisons nous notre application si notre Dockerfile ne doit pas contenir les outils nécessaires à son packaging ? 
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
@@ -350,6 +422,23 @@ COPY app .
 CMD ["./app"]
 ```
 
+Notes:
+Avec un Dockerfile on s’occuper de **builder** notre image.
+
+Ajouts 2019-03-27:
+Depuis cette nouvelle image, on lance un container, et on utilise
+
+```docker
+docker container cp \
+<container_id>:/go/src/github.com/alexellis/href-counter/app \
+./app
+```
+pour extraire `app` dans le dossier courant.
+
+Et avec un autre Dockerfile on s’occupait de **livrer** notre application.
+
+Malheureusement, pour passer les binaires d’une image à l’autre il fallait encore gérer des scripts shells en plus.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
@@ -372,6 +461,10 @@ COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"] 
 ```
 
+Notes:
+Le multistage build permet de garder les layers de l’image uniquement du dernier FROM.  
+Le reste n’est pas persisté.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
@@ -387,3 +480,9 @@ docker run -ti --rm -p 9000:9000 <dockerId>/docker-sfeir-back:1.0
 ```
 
 ![center](./assets/images/dockerfile/docker_run_server.png)
+
+Notes:
+Le programme tente de se connecter au serveur “db:5984”, mais ne le trouve pas….
+
+Ajouts 2019-03-27  
+La version courante du “back” retry à l’infini la connexion, on peut tuer le container

@@ -2,6 +2,13 @@
 
 # Docker compose
 
+Notes:
+Fichier descriptif au format yaml
+
+Permet de lancer un ensemble de containers qui interagissent entre eux
+
+Contient toutes les options des commandes précédentes
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-3" -->
@@ -60,6 +67,12 @@ services:
   * de networks
   * de services
 
+Notes:
+v1 déprécié, on passe directement à la v2, qui permet de déclarer les volumes, les networks et les services.
+
+La notion de service correspond à un groupe de containers identiques exposés sur un seul port.
+Docker gère l’équilibrage de charge (load-balancing) des requêtes entrantes vers les différents containers du service.
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-3 with-code medium-code" -->
@@ -83,6 +96,10 @@ docker volume  create [--driver local] <prj>_db_data
 docker network create [--driver local] <prj>_web_net
 docker network create [--driver local] <prj>_db_net
 ```
+
+Notes:
+Les ressources Docker créées par docker-compose sont préfixés par le nom du projet.
+Le projet prend par défaut le nom du dossier courant aka `basename $(pwd)`
 
 ##--##
 
@@ -148,6 +165,16 @@ services:
      - back
 ```
 
+Notes:
+Compose v2 est arrivé avec les volumes et les networks.
+On parle maintenant de services, plus de containers.
+
+On ajoute la version en en-tête de fichier.
+Les containers de compose v1 se retrouvent sous la clé “services” (on décale l’indentation d’un cran).
+
+Les services sont joignables entre eux par leur nom, les “links” ne servent plus.
+Pour déclarer les dépendances entre services, on utilise la clé “depends_on”
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-3 with-code medium-code" -->
@@ -187,6 +214,9 @@ services:
       - web_net
 ```
 
+Notes:
+Compose v2 supporte les réseaux et les volumes nommés
+
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-3 with-code medium-code" -->
@@ -222,3 +252,6 @@ services:
     networks:
       - web_net
 ```
+
+Notes:
+On peut également ajouter le tag des images qu’on va builder, ainsi que les healthchecks des services
