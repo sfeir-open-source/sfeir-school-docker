@@ -1,0 +1,45 @@
+version: '2.2'
+
+volumes:
+  logdir:
+
+services:
+
+  flog:
+    image: zbbfufu/flog:latest
+    build: ./flog
+    working_dir: /logs
+    command:
+      -n 1000000 -t log -w -o generated.log
+    volumes:
+      - logdir:/logs
+    depends_on:
+      - logstash
+
+  logstash:
+    image: zbbfufu/logstash:latest
+    build: ./logstash
+    environment:
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - logdir:/logs
+    depends_on:
+      - es
+
+  kibana:
+    image: kibana:6.4.2
+    ports:
+      - "5601:5601"
+    depends_on:
+      - es
+
+  es:
+    image: elasticsearch:6.4.2
+    networks:
+      default:
+        aliases:
+         - elasticsearch
+#    environment:
+#      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"

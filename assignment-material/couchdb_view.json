@@ -1,0 +1,10 @@
+{
+  "_id": "_design/calls",
+  "views": {
+    "type": {
+      "map": "function (doc) {\n  if(doc.type === 'call') {\n        emit(doc.front + '/' + doc.back, 1);\n    }\n}",
+      "reduce": "_count"
+    }
+  },
+  "language": "javascript"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "docker-sfeirschool-2018-front",
+  "version": "1.0.0",
+  "description": "Sample app for Docker training @sfeir.com",
+  "keywords": [
+    "sfeir",
+    "docker"
+  ],
+  "author": "Julien Furgerot",
+  "dependencies": {
+    "async-exit-hook": "^2.0.1"
+  }
+}
