@@ -42,23 +42,23 @@ Use case exemple : “bastion”, le SSH n’est accessible que de l'intérieur 
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Publication de ports
+# Pubishing ports
 
-Exo 9 <!-- .element: class="exo" -->
+Exercise 9 <!-- .element: class="exo" -->
 
-* Récupérez l'image **couchdb** taguée **2.1** :
+* Pull image **couchdb** tagged **2.1** :
 
 ```docker
 docker image pull couchdb:2.1
 ```
 
-* Instanciez un container **couchdb1** détaché en exposant le port **5984** sur le port **5984** du host :
+* Instanciate a **couchdb1** container in detached mode and expose port **5984** from inside the container to the port **5984** on the host :
 
 ```docker
 docker container run --name couchdb1 -d -p 5984:5984 couchdb:2.1
 ```
 
-* Ouvrez votre navigateur sur l'url [http://localhost:5984](http://localhost:5984) : *CouchDB* affiche sa version
+* Open url [http://localhost:5984](http://localhost:5984) in your browser : *CouchDB* prints its version
 
 Notes:
 Attention, avec Toolbox l’url est `http://<ip_vm>:5984`

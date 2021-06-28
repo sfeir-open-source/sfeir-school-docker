@@ -6,45 +6,45 @@
 
 <!-- .slide: class="sfeir-bg-white-7" -->
 
-# Stocker des fichiers : les volumes
+# Store files: volumes
 
 ![center h-600](./assets/images/volumes/file_system.png) <!-- .element: style="margin-top: 5rem;" -->
 
 Notes:
-3 types de volumes, détaillés après :
-* volume “tout court” ou nommés, managés par docker
-* bind mount depuis le host
-* tmpfs, en mémoire
+3 types of volumes :
+* anonymous and named volumes, managed by docker
+* bind mount from host
+* tmpfs, in memory
 
-Le premier est le volume managé :
-* Docker gère le répertoire où sont stockés les fichiers écrit dans ce volume.
-* Le répertoire est monté comme un montage de disque sous Linux.
-* L’utilisateur n’a pas à s’en occuper, sauf à faire du ménage de temps en temps (voir slides suivant)
+The first type are managed volumes:
+* Docker manages the storage where files are stored and written (internally a folder, depending on OS)
+* The folder is mounted as a traditionnal linux mount
+* User doesn't have to meddle with it, it is manage as a whole volume through docker commands
 
 
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Volumes managés
+# Managed Volumes
 
-Exo 10a <!-- .element: class="exo" -->
+Exercise 10a <!-- .element: class="exo" -->
 
-* L’image **couchdb** déclare un volume qui est créé et géré par Docker.
-Listez les volumes gérés par docker :
+* Image **couchdb** declares a volume which is created and managed by Docker.
+List docker managed volumes:
 
 ```docker
 docker volume ls
 ```
 
-* Inspectez le container **couchdb1** pour identifier le volume utilisé :
+* Inspect container **couchdb1** and identify which volume is used:
 
 ```docker
 docker container inspect --format "{{json .Mounts}}" couchdb1
 ```
 
-* On peut réutiliser les volumes d’un autre container.
-Lancez un container **busybox** avec les volumes du container **couchdb1** :
+* You can reuse volumes with another container:
+Start a **busybox** container with volumes from container **couchdb1** :
 
 ```docker
 docker container run -it --rm --volumes-from=couchdb1 busybox
@@ -66,18 +66,18 @@ on voit que **/opt/couchdb/data** contient quelques fichiers générés par couc
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Volumes managés - nettoyage
+# Managed Volumes - cleanup
 
-Exo 10b <!-- .element: class="exo" -->
+Exercise 10b <!-- .element: class="exo" -->
 
-* Arrêtez **couchdb1** et supprimez le container ainsi que ses volumes (rm **-v**) :
+* Stop **couchdb1** then delete the container and its volumes as well (rm **-v**) :
 
 ```docker
 docker container stop couchdb1
 docker container rm -v couchdb1
 ```
 
-* Vérifiez que le volume a bien été supprimé :
+* Check the volume have been deleted successfully:
 
 ```docker
 docker volume ls
@@ -96,26 +96,26 @@ docker volume rm ${VOLUME_ID}
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Volumes nommés
+# Named volumes
 
-Exo 11 <!-- .element: class="exo" -->
+Exercise 11 <!-- .element: class="exo" -->
 
-* Vous allez créer un volume nommé et l’utiliser pour le container **couchdb1**
-* Créez un volume nommé :
+* Create a named volume and use it with container **couchdb1**
+* Create the named volume:
 
 ```docker
 docker volume create couchdb_vol
 docker volume ls
 ```
 
-* Recréez un container **couchdb1**, utilisant cette fois le volume nommé :
+* Create a new **couchdb1** container, using the named volume this time:
 
 ```docker
 docker container run  --name couchdb1 -d -p 5984:5984 \
                       -v couchdb_vol:/opt/couchdb/data couchdb:2.1
 ```
 
-* Inspectez le nouveau container **couchdb1** :
+* Inspect the new container **couchdb1** :
 
 ```docker
 docker container inspect -f "{{json .Mounts}}" couchdb1
@@ -128,7 +128,7 @@ on recrée un nouveau couchdb1 avec un volume nommé créé explicitement pour p
 
 <!-- .slide: class="sfeir-bg-white-7" -->
 
-# Stocker des fichiers : bin mounts
+# Interact with your filesystem with bind mounts
 
 ![center h-600](./assets/images/volumes/file_system_area.png) <!-- .element: style="margin-top: 5rem;" -->
 
@@ -142,17 +142,17 @@ Lecture seule ou lecture/écriture
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Bind mount et astuce
+# Bind mounts tips
 
-Exo 12 <!-- .element: class="exo" -->
+Exercise 12 <!-- .element: class="exo" -->
 
-* Lancez un container **busybox** intéractif en montant le dossier `/var/lib/docker` du *host* vers le dossier `/dck` du *container* :
+* Start an interactive **busybox** container and mount directory `/var/lib/docker` from *host* to directory `/dck` inside the *container* :
 
 ```docker
 docker container run -it --rm -v /var/lib/docker:/dck busybox
 ```
 
-* Regarder le contenu du volume **couchdb1** :
+* Check this volume **couchdb1** contents:
 
 ```bash
 ls /dck/volumes/couchdb_vol/_data
@@ -198,11 +198,11 @@ La documentation est disponible ici : https://docs.docker.com/engine/security/us
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Pattern SideCar
+# SideCar Pattern
 
 Exo 13 <!-- .element: class="exo" -->
 
-* Lancez un container **busybox** en montant le dossier courant `$(pwd)` du *host* vers le dossier `/dck` du *container* :
+* Launch a **busybox** container and mount current directory `$(pwd)` (from *host*) to `/dck` (to inside *container*):
 
 ```docker
 docker container run  -d --rm --name gen_date \
@@ -210,14 +210,14 @@ docker container run  -d --rm --name gen_date \
                       sh -c 'while true; do date >> /dck/date.log; sleep 1; done'
 ```
 
-* Lancez un second container **busybox** interactif pour voir les “logs” :
+* Launch a second **busybox** in interactive mode to check “logs” :
 
 ```docker
 docker run -it --rm -v $(pwd):/dck2 busybox
 tail -f /dck2/date.log
 ```
 
-* Quittez le second puis tuez le premier container :
+* Leave the second, then kill the first container :
 
 ```docker
 docker kill gen_date
@@ -234,11 +234,11 @@ kill force l’arrêt du processsus là où stop envoie un signal TERM puis le K
 
 <!-- .slide: class="sfeir-bg-white-7 with-code big-code" -->
 
-# Stocker des fichiers : en mémoire
+# File storage: in memory
 
 ![center h-500](./assets/images/volumes/file_system_memory.png) <!-- .element: style="margin-top: 5rem;" -->
 
-* Pour lancer un container avec un filesystem en mémoire (**tmpfs**) :
+* Launch a container with a (**tmpfs**) mount:
 
 ```docker
 docker container run -ti --tmpfs /test busybox /bin/sh

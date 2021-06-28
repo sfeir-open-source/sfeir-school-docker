@@ -2,14 +2,212 @@
 
 # Getting started
 
+
+
 ##--##
 
-<!-- .slide: class="sfeir-bg-white-2 with-code-dark big-code" -->
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# Images
+
+Exercise 1 <!-- .element: class="exo" -->
+
+* List docker images on your machine :
+
+```docker
+docker image ls
+```
+
+* Download the `busybox` image:
+
+```docker
+docker image pull busybox
+```
+
+* List docker images, again:
+
+```docker
+docker image ls
+```
+
+
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# First runs
+
+Exercise 2 <!-- .element: class="exo" -->
+
+* Instanciate a container *Hello world* from image **busybox**:
+
+```docker
+docker container run busybox echo "Hello World"
+```
+
+* Instanciate an interactive shell from image **busybox**:
+
+```docker
+docker container run -i -t busybox
+```
+
+* Run *Hello world* inside this shell then quit:
+
+```bash
+echo "Hello World"
+exit
+```
+
+Notes:
+## mode “one shot”
+interactif
+-i = input / stdin
+-t = tty / stdout+stderr
+
+```docker
+docker container run --help
+  -i, --interactive                    Keep STDIN open even if not attached
+  -t, --tty                            Allocate a pseudo-TTY
+```
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# Detached Mode
+
+Exercise 3 <!-- .element: class="exo" -->
+
+* Instanciate a container in detached mode (**-d**) from image **busybox** :
+
+```docker
+docker container run -d busybox \
+  sh -c 'while true; do echo Hello sfeir school; sleep 1; done'
+```
+
+* List containers then find your id and container name:
+
+```docker
+docker container ls
+```
+
+![center](./assets/images/getting_started/docker_container_ls.jpg)
+
+* Print container logs:
+
+```docker
+docker container logs -f thirsty_elion
+```
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# Stop !!!!
+
+Exo 4 <!-- .element: class="exo" -->
+
+* List containers then stop the detached container:
+
+```docker
+docker container stop thirsty_elion
+```
+
+* List stopped containers then delete it:
+
+```bash
+docker container ls -a
+docker container rm 3b8fbec97873
+```
+
+* Delete all stopped containers :
+
+```docker
+docker container prune
+```
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# Ephemeral Containers
+
+Exercise 5 <!-- .element: class="exo" -->
+
+<!-- * Instanciate an interactive **busybox** container, removed on stop (**--rm**) :
+
+```docker
+docker container run --rm -it busybox
+``` -->
+
+* Instanciate an interactive **busybox** container :
+
+```docker
+docker container run -it busybox
+```
+
+* From there, create files then exit:
+
+```bash
+echo "hello" > /docker-test.txt
+exit
+```
+
+* Recreate an identical container, then try to print the contents of the file:
+
+```docker
+docker container run --rm -it busybox
+cat /docker-test.txt
+```
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
+
+# Image cleanup
+
+Exercise 6 <!-- .element: class="exo" -->
+
+* List images then delete image **busybox** :
+
+```docker
+docker image ls
+docker image rm busybox
+docker image ls
+```
+
+* <span class="danger">Tip</span>: to delete all unused images:
+
+```bash
+docker image prune
+```
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-2" -->
+
+# Conclusion
+
+<!-- Shit conclusion <div class="full-center">
+<img src="./assets/images/getting_started/conclusion.png" width="65%" alt="">
+</div>
+
+Notes:
+Pour récapituler :
+
+* docker en docker client ⇒ docker daemon
+* **image pull** récupère une image d’une registry vers le daemon
+* **container run** instancie un container à partir d’une image -->
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-2 d-with-code-dark big-code" -->
 
 # Images **vs** containers
 
 <div class="center">
-classes **vs** instance
+classes **vs** instances
 </div>
 
 ```java
@@ -37,8 +235,8 @@ public class Main {
 Notes:
 IMPORTANT !
 
-* On **package** un logiciel dans une **Image** ( == classe Java )
-* On **exécute** un processus dans un **Container** ( == instance )
+* One **packages** software inside an **Image** ( ~= Java class)
+* On **execute** a process inside a **Container** ( ~= instance )
 
 ##--##
 
@@ -65,204 +263,8 @@ Les images sont stockées dans une registry
 Registry publique : *Kitematic* == *Docker Store* (images officielles vendors aprouvés) == *Docker Hub* (communautaire)
 
 Registry privées : gcr.io sur la *GCP*, *Nexus 3*, *Artifactory*, *Docker EE*, …
-
 ##--##
 
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Les images
-
-Exo 1 <!-- .element: class="exo" -->
-
-* Listez les images présentes sur votre machine :
-
-```docker
-docker image ls
-```
-
-* Récupérez l'image `busybox` :
-
-```docker
-docker image pull busybox
-```
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Premières exécutions
-
-Exo 2 <!-- .element: class="exo" -->
-
-* Instanciez un container *Hello world* à partir de l'image **busybox** :
-
-```docker
-docker container run busybox echo "Hello World"
-```
-
-* Instanciez un shell interactif à partir de l'image **busybox** :
-
-```docker
-docker container run -i -t busybox
-```
-
-* Exécutez un *Hello world* dans ce shell puis quittez le container :
-
-```bash
-echo "Hello World"
-exit
-```
-
-Notes:
-## mode “one shot”
-interactif
--i = input / stdin
--t = tty / stdout+stderr
-
-```docker
-docker container run --help
-  -i, --interactive                    Keep STDIN open even if not attached
-  -t, --tty                            Allocate a pseudo-TTY
-```
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Mode détaché
-
-Exo 3 <!-- .element: class="exo" -->
-
-* Instanciez un container en détaché (**-d**) à partir de l'image **busybox** :
-
-```docker
-docker container run -d busybox \
-  sh -c 'while true; do echo Hello sfeir school; sleep 1; done'
-```
-
-* Listez les containers et trouvez l'id et le nom de votre container :
-
-```docker
-docker container ls
-```
-
-![center](./assets/images/getting_started/docker_container_ls.jpg)
-
-* Affichez les logs du container :
-
-```docker
-docker container logs -f thirsty_elion
-```
-
-Notes:
-## Mode détaché, s’exécute en tâche de fond (background)
-
-Containers identifiables par ID ou par NAME
-
-`logs -f` : comme tail, Ctrl+C pour sortir
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Stop !!!!
-
-Exo 4 <!-- .element: class="exo" -->
-
-* Listez les containers puis arrêtez le container détaché :
-
-```docker
-docker container stop thirsty_elion
-```
-
-* Listez les containers arrêtés puis supprimez le container :
-
-```bash
-docker container ls -a
-docker container rm 3b8fbec97873
-```
-
-* Supprimez tous les containers arrêtés. <span class="danger">Attention, danger</span> :
-
-```docker
-docker container prune
-```
-
-Notes:
-Containers identifiables par ID ou par NAME
-
-docker container --help
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Containers éphémères
-
-Exo 5 <!-- .element: class="exo" -->
-
-* Instanciez un container **busybox** intéractif, supprimé à l'arrêt (**--rm**) :
-
-```docker
-docker container run --rm -it busybox
-```
-
-* Dans ce container, créez des fichiers, puis quittez :
-
-```bash
-echo "hello" > /docker-test.txt
-exit
-```
-
-* Recréez un container identique et affichez le contenu du fichier :
-
-```docker
-docker container run --rm -it busybox
-cat /docker-test.txt
-```
-
-Notes:
-Le container est <span class="underline">supprimé à chaque fois</span>. Bien qu’il porte le même nom le fichier `docker-test.txt` n’est pas conservé.
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
-
-# Nettoyage des images
-
-Exo 6 <!-- .element: class="exo" -->
-
-* Listez les images puis supprimez l'image **busybox** :
-
-```docker
-docker image ls
-docker image rm busybox
-```
-
-* <span class="danger">Pour info</span>, pour supprimer toutes les images non utilisées par des containers :
-
-```bash
-docker image prune
-```
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-2" -->
-
-# Conclusion
-
-<div class="full-center">
-<img src="./assets/images/getting_started/conclusion.png" width="65%" alt="">
-</div>
-
-Notes:
-Pour récapituler :
-
-* docker en docker client ⇒ docker daemon
-* **image pull** récupère une image d’une registry vers le daemon
-* **container run** instancie un container à partir d’une image
-
-##--##
 
 <!-- .slide: class="sfeir-bg-white-2 with-code big-code" -->
 
@@ -276,9 +278,8 @@ docker ${OBJECT} ${COMMAND}
 
 | OBJECT | COMMAND | Description |
 |--|--|--|
-| <span class="warning">image</span>      | ls, pull, rm, prune | <span class="dark">Manage images</span>     |
-| <span class="warning">container</span>  | ls, run, stop, rm, prune   | <span class="dark">Manage containers</span> |
-|  |  |  |
+| <span class="warning">image</span> | ls, pull, rm, prune | <span class="dark">Manage images</span> |
+| <span class="warning">container</span> | ls, run, stop, rm, prune | <span class="dark">Manage containers</span> |
 
 Notes:
 Ce slide montre les commandes découvertes jusqu’à maintenant

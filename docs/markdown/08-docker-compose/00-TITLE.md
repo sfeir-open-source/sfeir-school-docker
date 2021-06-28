@@ -15,9 +15,9 @@ Contient toutes les options des commandes précédentes
 
 # Docker compose
 
-* Réunir plusieurs instances d'images facilement
-* Évite de passer son temps à taper uniquement des commandes verbeuses
-* Gain de temps pour déployer de simples applications
+* Gather multiple containers easily
+* Skip writing verbose docker command-lines
+* Time-saver for simple applications
 <!-- .element: style="margin-bottom: 6rem;" -->
 
 ![h-500](./assets/images/docker-compose/kraken.png)
@@ -27,7 +27,7 @@ Contient toutes les options des commandes précédentes
 
 <!-- .slide: class="sfeir-bg-white-3" -->
 
-# Objectif
+# Objective
 
 ![center](./assets/images/docker-compose/swarm_cluster.png) <!-- .element: width="100%" -->
 
@@ -35,7 +35,7 @@ Contient toutes les options des commandes précédentes
 
 <!-- .slide: class="sfeir-bg-white-3 with-code big-code" -->
 
-# Commandes
+# Commands
 
 ```bash
 docker-compose build
@@ -61,11 +61,12 @@ networks:
 services:
 ```
 
-* La ~~version 1~~ est dépréciée.
-* La version 2 permet la déclaration :
-  * de volumes
-  * de networks
-  * de services
+* ~~version 1~~ is deprecated.
+* Version 2 allows declaration of:
+  * volumes
+  * networks
+  * services
+* Version 3 hasn't much changes compared to v2
 
 Notes:
 v1 déprécié, on passe directement à la v2, qui permet de déclarer les volumes, les networks et les services.
@@ -89,7 +90,7 @@ networks:
 services:
 ```
 
-* En ligne de commande avec docker on aurait :
+* This equivalent to using the following commands:
 
 ```docker
 docker volume  create [--driver local] <prj>_db_data
@@ -121,7 +122,7 @@ services:
       - db_data:/opt/couchdb/data
 ```
 
-* En ligne de commande avec docker on aurait :
+* Docker command line equivalent:
 
 ```docker
 docker container run  --name <prj>_db \

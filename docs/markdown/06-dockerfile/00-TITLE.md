@@ -9,7 +9,7 @@
 # Dockerfile
 
 * **Image as code**
-* Document texte
+* Text Document
 
 ```dockerfile
 # Create image with you nodejs image (replace zbbfufu by your docker id)
@@ -41,12 +41,12 @@ https://blog.codeship.com/3-different-ways-to-provide-docker-build-context/
 
 # Dockerfile lifecycle
 
-* Chaque **instruction** dans le Dockerfile créer un nouveau layer dans l’image finale qui sera créée.
-* Au final, au travers de ces instructions Docker ne fait que réutiliser des features déjà existantes.
-  * **run** d’un container
-  * **exécution** de l’instruction (ce qui déclenche le Copy-On-Write)
-  * **commit** de l’état du container pour créer une nouvelle image transitive
-  * **rm** du container intermédiaire
+* Every **instruction** in the Dockerfile creates a new layer
+* In the end, docker only reuse the existing commands we've seen just before:
+  * **run** a container
+  * **execute** the instruction (triggers the Copy-On-Write)
+  * **commit** the container state to create intermediate image
+  * **rm** on the intermediate container
 
 Notes:
 Exemple d’une stack docker build
@@ -105,17 +105,18 @@ Successfully tagged test-arg:latest
 
 # Dockerfile lifecycle 2
 
-* Pour permettre à Docker de gagner en efficacité, celui-ci utilise un cache sauf si l’on précise lors du **build**
+* For efficiency purposes, Docker uses a cache
+* Unless stated otherwise at **build** time:
 
 ```docker
 docker build --no-cache=true
 ```
 
-* Docker **invalide** ce cache dans plusieurs cas qu’il vaut mieux avoir en tête.
-  * comparaison entre image parent et image file pour voir si une instruction est la même
-  * pour les instructions **ADD** et **COPY**, le cache est invalidé sur le checksum des fichiers ajoutés est différent
-  * **commit** de l’état du container pour créer une nouvelle image transitive
-  * le check du cache ne s’effectue pas sur les fichiers à l’intérieur du container
+* Docker uses the cache:
+  * same instructions (in same order and layer)
+  * for instructions **ADD** and **COPY**, cache is invalidated when the checksum of added files change
+  * Docker doesn't checksum on files **inside** the container. (This is a caveat when you update a dependcy in an external system but the instruction is the same, for ex using :latest dependencies)
+
 
 Notes:
 * Starting with a parent image that is already in the cache, the next instruction is compared against all child images derived from that base image to see if one of them was built using the exact same instruction. If not, the cache is invalidated.
@@ -129,8 +130,11 @@ Once the cache is invalidated, all subsequent Dockerfile commands generate new i
 
 # FROM
 
-* **Initialise une nouveau “build stage”** : défini l’image de base qui servira de base pour créer la notre. Celle-ci peut être disponible localement ou non et dans ce cas, un  Docker ira cherche sur un public repositories.
-* On peut placer un **ARG** avant un **FROM** pour définir un argument qui servira dans le FROM.
+* **Init a new “build stage”** : tells which image will be used for creating our own.
+* It can be found locally (on the machine). if not, docker will pull it from public repositories
+* You can define an **ARG** before **FROM**. It can be used to define an argument in the FROM. 
+
+<br />
 
 ```dockerfile
 ARG  CODE_VERSION=latest
@@ -155,18 +159,18 @@ CMD  /code/run-extras
 
 # ARG
 
-* **ARG** permet de définir des arguments à passer à Docker au moment du build d’une image.
-* On peut définir des valeurs par défauts directement depuis le `Dockerfile`
+* **ARG** are used to pass arguments to Docker for building images
+* You can supply default values in the `Dockerfile`
 
 ```dockerfile
 FROM busybox
 ARG version=1.0.0
 ```
 
-* On définit la valeur de ces arguments au moment du build.
+* **ARG**s can be defined at build time:
 
 ```docker
-docker build --build-arg foo=some_value
+docker build --build-arg version=2.5.3
 ```
 
 ##--##
@@ -175,15 +179,16 @@ docker build --build-arg foo=some_value
 
 # LABEL
 
-* **LABEL** permet de définir des metadatas associées à une image Docker
-* Les metadatas sont renseignés sous la forme clé ⇒ valeur.
+* **LABEL** are metadatas for Docker images
+* Labels are key ⇒ value pairs
+* They are for documenting purposes
 
 ```dockerfile
 LABEL maintainer=”Julien KLAER”
 LABEL version=1.0.0
 ```
 
-* On peut **inspect** les labels associés à notre image avec.
+* One can **inspect** labels on an image:
 
 ```docker
 docker inspect image
@@ -198,20 +203,20 @@ Si le LABEL contient des espacements, il faut utiliser des quotes / backslash co
 
 # COPY and ADD
 
-* **COPY** permet de copier des *fichiers locaux* vers le *container* à partir du build context.
+* **COPY** allows copying *local files* to the *container*, from the build context.
 
 ```dockerfile
 COPY file.txt /tmp/destination
 ```
 
-* **ADD** permet de copier des *fichiers locaux*, *remote* et <span class="underline">dézipper directement</span> le contenu d’un tar dans le *container*.
+* **ADD** allows copyings *local files*, *remote files* and <span class="underline">extract</span> tar archives into a *container*.
 
 ```dockerfile
 ADD application.tar /opt
 ```
 
-* Par défaut les fichiers copiés <span class="underline">appartiennent à root</span> mais on peut préciser le user et le groupe.
-Ils doivent exister au préalable
+* By default, copied files are <span class="underline">owned by root</span>, but on can specify the user and group:
+(they must already exist inside the container, more on that later)
 
 ```dockerfile
 COPY --chown=<user>:<group> <src> <dest>
@@ -227,11 +232,11 @@ Notes:
 
 # RUN
 
-* **RUN** permet d'exécuter des commandes sur le *container transitif* afin de le faire muter pour écrire un <span class="underline">nouveau layer</span> sur une image.
+* **RUN** will run commands inside the intermediate container, writing in the intermediate layer, to be committed before the next Dockerfile instruction.
 * Il existe deux formes d’écriture mais le plus souvent on se passe de l’exec form.
 
 ```dockerfile
-RUN apt-get dist-upgrade -y
+RUN apt-get install -y openjdk-11
 ```
 
 ##--##
@@ -240,15 +245,16 @@ RUN apt-get dist-upgrade -y
 
 # EXPOSE
 
-* **EXPOSE** permet de <span class="danger">documenter</span> l’exposition d’un ou plusieurs ports ainsi que de leurs protocols
-* Les metadatas sont renseignés sous la forme clé ⇒ valeur.
+* **EXPOSE** will <span class="danger">documente</span> which port and protocol the application uses and should be bound
 
 ```dockerfile
 EXPOSE 80/tcp
 EXPOSE 80/udp
 ```
 
-* Pour effectuer le **port forwarding** il faut faire comme d’habitude :
+Beware this instruction in itself will not do the port binding when running a container
+
+* To make a **port binding**, we use these options from previous chapters:
 
 ```docker
 docker container run --name couchdb1 -d -p 5984:5984 couchdb:2.1
@@ -263,12 +269,14 @@ en utilisant l’option `--publish-all` lors de l'instanciation d’un container
 
 # VOLUME
 
-* **VOLUME** permet de définir un <span class="underline">point de montage</span> qui sera effectivement créé lors de l'instanciation d’un nouveau container
-* Pour créer un volume il faut utiliser l’instruction suivante :
+* **VOLUME** defines <span class="underline">mounting point</span>, which will be automatically created when a container is created with `docker run` (unless specified otherwise)
+* To declare a volume, use this syntax:
 
 ```dockerfile
 VOLUME /myVolume
 ```
+
+Notes: The volume is a declaration and is not mounted during build time. It will be mounted once the image is built and you `docker run` a container from it
 
 Notes:
 Attention les volumes utilisés dans les Dockerfile sont du type “anonyme”
@@ -281,13 +289,14 @@ Changing the volume from within the Dockerfile: If any build steps change the da
 
 # WORKDIR
 
-* **WORKDIR** permet de définir le **répertoire d’éxécution** des prochaines instructions :
+* **WORKDIR** changes the **current directory** where the next instructions will be run:
   * RUN
   * CMD
   * ENTRYPOINT
   * COPY
   * ADD
-* On s’en sert simplement de cette manière :
+
+* It's use as such:
 
 ```dockerfile
 WORKDIR /opt
@@ -299,11 +308,12 @@ WORKDIR /opt
 
 # USER
 
-* **USER** permet de définir le prochain <span class="danger">UID et optionnellement GID</span> dans lesquelles les instructions suivantes seront exécutées :
+* **USER** will switch under which <span class="danger">user (UID and optionnaly GID)</span> the next instructions will run:
   * RUN
   * CMD
   * ENTRYPOINT
-* Il est aussi très facile de s’en servir.
+* This instruction **DOES NOT CREATE** a new user in the system.
+* You can create a new user with this linux command: `RUN useradd -ms /bin/bash newuser`
 
 ```dockerfile
 USER webserver:application
@@ -315,8 +325,8 @@ USER webserver:application
 
 # ENV
 
-* **ENV** permet de définir des **variables d’environnements** qui seront disponible à <span class="underline">l'exécution du container</span> et lors des <span class="underline">prochaines phases du build</span>.
-* On les définit et s’en sert de la manière suivante.
+* **ENV** defines **environment variables** which will be available during <span class="underline">container execution</span> and during the <span class="underline">next build instructions</span>.
+* The syntax is:
 
 ```dockerfile
 ENV application=”my-application”
@@ -324,7 +334,7 @@ ENV environment=”development”
 RUN pass secrets/${environment}/${application}
 ```
 
-* Il est possible de **setter** et même **overrider** ces variables lorsque l’on run un container.
+* You can **set** or even **override** these when you run a container
 
 ```docker
 docker container run -e environment=”development” busybox
@@ -336,9 +346,9 @@ docker container run -e environment=”development” busybox
 
 # ENTRYPOINT and CMD
 
-* **ENTRYPOINT** permet de définir quel <span class="underline">exécutable</span> le container va lancer à son instanciation.
-* **CMD** est utilisé principalement pour fournir des **options par défaut** pour l’instruction **ENTRYPOINT**.
-* Voici un exemple d'utilisation des deux instructions ensemble :
+* **ENTRYPOINT** defines which <span class="underline">executable</span> the container will run when instanciated.
+* **CMD** is used to give **default options** to the instruction in **ENTRYPOINT**.
+* example :
 
 ```dockerfile
 FROM ubuntu
@@ -364,9 +374,9 @@ pour les interactions entre les deux instructions
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Votre première "vraie" image
+# Your first image
 
-Exo 14 <!-- .element: class="exo" -->
+Exercuse 14 <!-- .element: class="exo" -->
 
 * Allez dans le dossier **docker-sfeirschool-2018/back**.
   Construisez et taggez (**-t**)  l’image décrite par le fichier **Dockerfile** :
@@ -387,10 +397,13 @@ docker image push <dockerId>/docker-sfeir-back:1.0
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# Optimiser votre Dockerfile
+# Optimiser your Dockerfile
 
-* Objectif de minimiser la taille d’une image
-* Une application devrait donc contenir uniquement son binaire et ses dépendances pour s'exécuter
+* Objective: minimize an image size footprint
+* An application should contain only its binary/program and its dependencies, no more
+
+=> What when the dependencies needed to build (maven, go) are not the same needed to run (jdk ...)
+
 
 Notes:
 Comment construisons nous notre application si notre Dockerfile ne doit pas contenir les outils nécessaires à son packaging ? 
@@ -399,7 +412,7 @@ Comment construisons nous notre application si notre Dockerfile ne doit pas cont
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
 
-# Avant on avait...
+# Before, we had ...
 
 ## ➡ **Dockerfile.build**
 
@@ -443,7 +456,7 @@ Malheureusement, pour passer les binaires d’une image à l’autre il fallait 
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
 
-# Mais maintenant on a...
+# Now we can combine those...
 
 ## <span class="border">➡ le **Multi stage build**</span>
 
@@ -469,11 +482,11 @@ Le reste n’est pas persisté.
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Lancement du serveur back
+# Starting the backend
 
-Exo 14 suite <!-- .element: class="exo" -->
+Exercise 14b <!-- .element: class="exo" -->
 
-* Lancez le *container* :
+* Run the *container* :
 
 ```docker
 docker run -ti --rm -p 9000:9000 <dockerId>/docker-sfeir-back:1.0

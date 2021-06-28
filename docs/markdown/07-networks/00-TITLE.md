@@ -6,16 +6,16 @@
 
 <!-- .slide: class="sfeir-bg-white-2" -->
 
-# Réseaux
+# Networks
 
 <div class="left">
 <div class="box">
 
-<p>Les réseaux permettent de relier les containers et de contrôler l’isolation de plusieurs groupes de containers.</p>
+<p>Network connect containers together.</p>
 
-<p>Ils fonctionnent comme des switchs (bridges en anglais).</p>
+<p>They behave like network bridges.</p>
 
-<p>3 réseaux pré-définis :</p>
+<p>3 network types available:</p>
 
 <ul>
   <li>none</li>
@@ -35,9 +35,9 @@
 
 <!-- .slide: class="sfeir-bg-white-2" -->
 
-# Réseaux "none"
+# Network "none"
 
-* Le container est indépendant et n'a accès à aucun réseau.
+* Container is isolated and can't access any network.
 
 ![h-700 center](./assets/images/networks/network_none.png)
 
@@ -45,10 +45,10 @@
 
 <!-- .slide: class="sfeir-bg-white-2" -->
 
-# Réseaux "host"
+# "host" networks
 
-* Le container a directement accès à l’interface physique du host, et donc à tous les réseaux qui y sont connectés.
-* Un serveur tournant sur le port 80 du container est directement accessible sur le port 80 du host.
+* The container directly access your host machine network, it can communicate with everything you use outside Docker
+* A server running on port 80 in the container will be reachable on your host on port 80 (without port binding involved)
 
 ![h-600 center](./assets/images/networks/network_host.png)
 
@@ -56,10 +56,10 @@
 
 <!-- .slide: class="sfeir-bg-white-2" -->
 
-# Réseaux "bridge"
+# "default bridge" network
 
 * Interface “docker0”
-* C’est le réseau par défaut sur lequel sont connectés les containers.
+* That's the default network containers are connected to
 
 ![h-650 center](./assets/images/networks/network_bridge.png)
 
@@ -67,10 +67,10 @@
 
 <!-- .slide: class="sfeir-bg-white-2" -->
 
-# Réseaux "personnalisés"
+# Custom networks
 
-* Pour isoler les containers
-* Un container peut être attaché à plusieurs réseaux
+* Gives control over containers network isolation
+* A container can be connected to several networks
 
 ![h-800 center](./assets/images/networks/network_perso.png)
 
@@ -78,11 +78,11 @@
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Image du "front"
+# "frontend" Image
 
-Exo 15 <!-- .element: class="exo" -->
+Exercise 15 <!-- .element: class="exo" -->
 
-* Allez dans le dossier **docker-sfeirschool-2018/front**
+* Step into **docker-sfeirschool-2018/front**
 * Construisez puis pushez l’image :
 
 ```docker
@@ -94,24 +94,24 @@ docker image push <dockerId>/docker-sfeir-front:1.0
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Réseaux
+# Networks
 
-Exo 16 <!-- .element: class="exo" -->
+Exercise 16 <!-- .element: class="exo" -->
 
-* Créez les réseaux **db_net** et **web_net** :
+* Create networks **db_net** et **web_net** :
 
 ```docker
 docker network create db_net
 docker network create web_net
 ```
 
-* Connectez le container **couchdb1** au réseau **db_net** avec l’alias **couchdb** :
+* Connect container **couchdb1** to network **db_net** with alias **couchdb** :
 
 ```docker
 docker network connect db_net --alias couchdb couchdb1
 ```
 
-* Démarrez un nouveau container back connecté au réseau **db_net** :
+* Start a new back container connected to **db_net** :
 
 ```docker
 docker container run -d --name back -p 9000:9000 \
@@ -122,25 +122,25 @@ docker container run -d --name back -p 9000:9000 \
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
-# Réseaux 2
+# Networks 2
 
-Exo 17 <!-- .element: class="exo" -->
+Exercise 17 <!-- .element: class="exo" -->
 
-* Attachez le container **back** au réseau **web_net** :
+* Attach the container **back** to network **web_net** :
 
 ```docker
 docker network connect web_net back
 ```
 
-* Démarrez un nouveau container **front** attaché au réseau **web_net** :
+* Start a new **front** container attached to network **web_net** :
 
 ```docker
 docker container run -d --name front -p 3000:3000 \
   --network=web_net <dockerId>/docker-sfeir-front:1.0
 ```
 
-* Ouvrez l’adresse [http://localhost:9000/call/test](http://localhost:9000/call/test)
-* Ouvrez l’adresse [http://localhost:3000](http://localhost:3000)
+* Open URL [http://localhost:9000/call/test](http://localhost:9000/call/test)
+* Open URL [http://localhost:3000](http://localhost:3000)
 
 ##--##
 
@@ -148,23 +148,23 @@ docker container run -d --name front -p 3000:3000 \
 
 # Oui Maître
 
-Exo 18 <!-- .element: class="exo" -->
+Exercise 18 <!-- .element: class="exo" -->
 
-* Arrêtez le container **couchdb1** :
+* Stop container **couchdb1** :
 
 ```docker
 docker container stop couchdb1
 ```
 
-* Démarrez un container **couchdb** attaché au réseau **db_net** et utilisant le volume  **couchdb_vol** :
+* Start a container **couchdb** attached to network **db_net** using volume  **couchdb_vol** :
 
 ```docker
 docker container run -d --name couchdb -v couchdb_vol:/opt/couchdb/data \
   --network=db_net couchdb:2.1
 ```
 
-* Rafraîchissez la page front
-* Vous pouvez maintenant supprimer tous les containers
+* Refresh the front page
+* You can now delete all containers
 
 Notes:
 Vous pouvez expliquer ici comment mettre à jour une db (éventuellement à chaud) en démarrant un container sur le même volume.

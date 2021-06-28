@@ -6,7 +6,7 @@
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# Qu'est-ce que Docker ?
+# What is Docker ?
 
 <div class="full-center">
     <img src="./assets/images/docker.png" width="30%" alt="">
@@ -15,8 +15,57 @@
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
+# What is Docker
+From IBM:
+> Docker is an open source containerization platform. It enables developers to package applications into containers—standardized executable components combining application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Containers simplify delivery of distributed applications, and have become increasingly popular as organizations shift to cloud-native development and hybrid multicloud environments.
 
-# La logistique
+
+
+## what does that even mean ?
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-1" -->
+# What problem does it solve ?
+
+## Packaging
+> I have my application, it runs on java 8.11 (later versions not supported), it has lots of dependencies (Spring, POI, Feign, Third Party plugins)
+
+How do I install the application on the environment ? How I'm sure everything is setup ?
+
+
+## Isolation
+> I have a second application, it needs a different java version (11), and run on port 8080
+
+Will there be conflict problems if I install them both on the same machine ?
+
+Also: horror stories with updates 
+
+## Scaling
+> Incoming traffic varies, and can't handle the load on a single machine
+
+How to start new instances on new machines ?
+How to spare resources when traffic is low ?
+
+
+##--##
+<!-- .slide: class="sfeir-bg-white-1" -->
+# Existing solution: a Virtual Machine
+
+VMs images with app installed and environment prepared
+
+you still need:
+* installation scripts
+* Spawn the VMs
+
+And most importantly
+* VM resource Overhead
+
+
+##--##
+<!-- .slide: class="sfeir-bg-white-1" -->
+
+# An analogy: intermodal container
 
 <div class="full-center">
 <img src="./assets/images/introduction/logistique.png" width="85%" alt="">
@@ -35,7 +84,7 @@ Au 19ème siècle, manutention inter-modale faite à la main par des “dockers�
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# La logistique et les containers
+# An analogy: intermodal container
 
 <div class="full-center">
 <img src="./assets/images/introduction/logistique_and_container.png" width="85%" alt="">
@@ -53,7 +102,7 @@ Il invente un format de packaging qui deviendra un standard : le **container**.
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# L'informatique et les containers
+# Software and containers
 
 <div class="full-center">
 <img src="./assets/images/introduction/informatique_and_container.png" width="85%" alt="">
@@ -67,33 +116,17 @@ Il s’exécute à l’identique dans plusieurs environnements sans être modifi
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# Qu'y mettons-nous ?
-
-<div class="full-center">
-<img src="./assets/images/introduction/all_in_docker.png" width="85%" alt="">
-</div>
-
-Notes:
-Une variété de **runtimes**
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-1" -->
-
-# Qu'est-ce que Docker ?
+# What's Docker, again ?
 
 <div class="full-center" width="80%">
-Docker permet de **packager une application**
+Docker can **package an application**
 <br/>
-avec **l’ensemble de ses dépendances**
+with **all of its dependencies**
 <br/>
-dans une **unité standardisée**
+within a **standardized unit:**
 <br/>
-pour le déploiement de logiciels :
 <br/>
-<p>
-les **CONTAINERS**
-</p>
+<p>**CONTAINERS**</p>
 </div>
 
 Notes:
@@ -103,29 +136,25 @@ Docker en une phrase
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# D'où vient Docker ?
+# Some history: Where Docker comes from?
 
 <div class="left">
-
 <div class="box">
 
 <ul>
   <li>Solomon Hykes @DotCloud</li>
-  <li>Programmé en Go</li>
+  <li>Programmed with Go</li>
   <li>Open source</li>
-  <li>1<sup>ère</sup> version : 13 mars 2013</li>
+  <li>1<sup>st</sup> version : 13 march 2013</li>
 </ul>
 
 </div>
-
 </div>
 
 <div class="right">
-
 <div class="box">
 ![center](./assets/images/introduction/develop_on_docker.jpg)
 </div>
-
 </div>
 
 Notes:
@@ -151,22 +180,3 @@ Quelques dates clés :
 * 2007 : Control Groups dans le noyau Linux
 * 2008 : LXC (Linux Containers), uses cgroups
 * 2013 : Docker
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-1" -->
-
-# Ce que vous allez mettre en place
-
-<div class="center">
-<img src="./assets/images/introduction/architecture.png" width="75%" alt="">
-</div>
-
-Notes:
-Cluster Swarm :
-
-* une application **front** scalable
-* une application **back** scalable
-* une base **couchdb** sur un seul noeud.
-
-Le tout avec une séparation réseau 3 tiers
