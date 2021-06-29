@@ -2,9 +2,8 @@
 FROM alpine:3.5
 
 # some usefull tags
-LABEL image-name docker-sfeirschool-front
+LABEL image-name docker-training-front
 LABEL maintainer furgerot.f@sfeir.com
-LABEL sfeirschool-date 2018-03-07
 
 # install nodejs
 RUN apk add --update nodejs

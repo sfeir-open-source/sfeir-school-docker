@@ -2,7 +2,7 @@
 FROM alpine:3.5
 
 # some usefull tags
-LABEL image-name docker-sfeirschool-back
+LABEL image-name docker-training-back
 LABEL maintainer furgerot.f@sfeir.com
 LABEL sfeirschool-date 2018-07-23
 
