@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Networks
 
 ##--##
@@ -82,12 +80,12 @@
 
 Exercise 15 <!-- .element: class="exo" -->
 
-* Step into **docker-sfeirschool-2018/front**
+* Step into **assignment-material/front**
 * Construisez puis pushez l’image :
 
 ```docker
-docker image build -t <dockerId>/docker-sfeir-front:1.0 .
-docker image push <dockerId>/docker-sfeir-front:1.0
+docker image build -t <dockerId>/docker-training-front:1.0 .
+docker image push <dockerId>/docker-training-front:1.0
 ```
 
 ##--##
@@ -115,7 +113,7 @@ docker network connect db_net --alias couchdb couchdb1
 
 ```docker
 docker container run -d --name back -p 9000:9000 \
-  --network=db_net <dockerId>/docker-sfeir-back:1.0
+  --network=db_net <dockerId>/docker-training-back:1.0
 ```
 
 ##--##
@@ -136,7 +134,7 @@ docker network connect web_net back
 
 ```docker
 docker container run -d --name front -p 3000:3000 \
-  --network=web_net <dockerId>/docker-sfeir-front:1.0
+  --network=web_net <dockerId>/docker-training-front:1.0
 ```
 
 * Open URL [http://localhost:9000/call/test](http://localhost:9000/call/test)

@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Volumes
 
 ##--##
@@ -160,7 +158,7 @@ ls /dck/volumes/couchdb_vol/_data
 
 ![center](./assets/images/volumes/ls_volume.png)
 
-* Note : Le dossier `/var/lib/docker` est situé dans la VM où tourne le démon Docker. Cet exercice montre comment y accéder depuis *Windows / Mac*.
+* Note: Directory `/var/lib/docker` is located where Docker Daemon runs (in a VM if not linux). This assignment shows how to access it from *Windows / Mac*.
 
 Notes:
 **/var/lib/docker** est dans la VM de toolbox/d4w/d4m, on ne peut pas y accéder directement.

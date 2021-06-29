@@ -4,6 +4,29 @@
 
 ## **Welcome**
 
+
+##==##
+# **Docker Training Contents**
+
+* What is and why Docker
+* Basic Container Usage
+* Orchestrating Several Containers 
+
+
+##==##
+
+# Training Plan
+
+Breaks ?
+* **morning break at 10:30**
+* **afternoon break at 3:30pm**
+
+<br>
+Lunch ?
+**12:30 to 1:30pm**<br />
+
+(estimated time)
+
 ##==##
 
 
@@ -31,18 +54,3 @@ Register on Docker Hub
 <br><br>
 <img src="./assets/images/docker.png" alt="Docker">
 </p>
-
-##==##
-
-# Training Plan
-
-Breaks ?
-* **morning break at 10:30**
-* **afternoon break at 3:30pm**
-
-<br>
-Lunch ?
-**12:30 to 1:30pm**<br />
-
-(estimated time)
-

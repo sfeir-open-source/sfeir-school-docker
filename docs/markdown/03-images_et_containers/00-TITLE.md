@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Images and Containers
 
 ##--##
@@ -32,17 +30,6 @@ Notes:
 
 ##--##
 
-<!-- .slide: class="sfeir-bg-white-5" -->
-
-# VM and Containers
-
-![center](./assets/images/images_et_containers/vm_et_container.png) <!-- .element: width="100%" -->
-
-Notes:
-On peut mélanger les deux pour plus d’isolation (multi-tenant, ...)
-
-##--##
-
 # Docker on
 # Toolbox / Docker4Win / Docker4Mac
 
@@ -71,58 +58,6 @@ Dans ces 3 cas :
 * Docker4(Win/Mac) : intégration réseau et montage de fs facilité
 
 ##--##
-
-<!-- .slide: class="sfeir-bg-white-5" -->
-
-# Image layers
-
-* Image are read-only -> immutability
-* Copy-On-Write strategy
-
-<div class="center" style="margin-top: 5rem;">
-![h-450](./assets/images/images_et_containers/docker_brique_1.png)
-![h-450](./assets/images/images_et_containers/docker_brique_2.png)
-![h-450](./assets/images/images_et_containers/docker_brique_3.png)
-<div>
-
-Notes:
-
-* Images constituées de layers, notion d’héritage
-* Immutabilité des images / filesystem (fs) du container en lecture/écriture
-* Un fichier est modifié par recopie dans le layer du container ⇒ “Copy-On-Write”
-* Un fichier supprimé est matérialisé par un marqueur “suppression” dans le layer du container
-
-<span class="underline">exemple :</span>
-installation debian + emacs + apache
-les layers sont le résultat des fichiers écrits par des commandes apt-get, ...
-
-
-##--##
-
-<!-- .slide: class="sfeir-bg-white-5" -->
-
-# Image layers 2
-
-* Storage
-* Performances
-
-![center h-600](./assets/images/images_et_containers/saving-space.png)
-
-Notes:
-<span class="underline">Autre exemple :</span>
-
-* La modification à partir d’une image ubuntu:15.04 ne modifie pas l’image, mais en crée une nouvelle
-* La nouvelle image réutilise les layers de la précédente
-* la nouvelle layer ne pèse ici que 13 octets
-
-Espace disque : pas besoin de dupliquer le contenu binaire des images  
-⇒ versus VM où l’OS hôte est dupliqué.  
-⇒ Intéret en entreprise de définir une image de base communes à tous les projets.
-
-Performances : le mapping des fichiers de l’image stockée sur disque vers la mémoire vive n’est fait qu’une fois par image ⇒ binaire partagé en mémoire tant que non modifié
-
-##--##
-
 <!-- .slide: class="sfeir-bg-white-5" -->
 
 # Dependency to host OS
@@ -183,7 +118,60 @@ création d’une nouvelle image “commitée” à partir d’un container ⇒ 
 node_ctn = nom du container  
 mynodejs = nom de la nouvelle image
 
+
 ##--##
+
+<!-- .slide: class="sfeir-bg-white-5" -->
+
+# Image layers
+
+* Image are read-only -> immutability
+* Copy-On-Write strategy
+
+<div class="center" style="margin-top: 5rem;">
+![h-450](./assets/images/images_et_containers/docker_brique_1.png)
+![h-450](./assets/images/images_et_containers/docker_brique_2.png)
+![h-450](./assets/images/images_et_containers/docker_brique_3.png)
+<div>
+
+Notes:
+
+* Images constituées de layers, notion d’héritage
+* Immutabilité des images / filesystem (fs) du container en lecture/écriture
+* Un fichier est modifié par recopie dans le layer du container ⇒ “Copy-On-Write”
+* Un fichier supprimé est matérialisé par un marqueur “suppression” dans le layer du container
+
+<span class="underline">exemple :</span>
+installation debian + emacs + apache
+les layers sont le résultat des fichiers écrits par des commandes apt-get, ...
+
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-5" -->
+
+# Image layers 2
+
+* Storage
+* Performances
+
+![center h-600](./assets/images/images_et_containers/saving-space.png)
+
+Notes:
+<span class="underline">Autre exemple :</span>
+
+* La modification à partir d’une image ubuntu:15.04 ne modifie pas l’image, mais en crée une nouvelle
+* La nouvelle image réutilise les layers de la précédente
+* la nouvelle layer ne pèse ici que 13 octets
+
+Espace disque : pas besoin de dupliquer le contenu binaire des images  
+⇒ versus VM où l’OS hôte est dupliqué.  
+⇒ Intéret en entreprise de définir une image de base communes à tous les projets.
+
+Performances : le mapping des fichiers de l’image stockée sur disque vers la mémoire vive n’est fait qu’une fois par image ⇒ binaire partagé en mémoire tant que non modifié
+
+##--##
+
 
 <!-- .slide: class="sfeir-bg-white-4 with-code big-code" -->
 
@@ -191,7 +179,7 @@ mynodejs = nom de la nouvelle image
 
 Exercise 8 <!-- .element: class="exo" -->
 
-* Taggez your image :
+* Tag your image :
 
 ```docker
 docker image tag mynodejs <dockerHubId>/nodejs:1.0
@@ -235,6 +223,10 @@ Pattern : <!-- .element: class="underline" -->
 Exemples : <!-- .element: class="underline" -->
 
 <div class="center border" style="margin-top: 1rem;">
+<span class="danger">node</span>
+<br/>
+<span class="danger">node</span>:<span class="success">latest</span>
+<br/>
 <span class="warning">hub.docker.com</span>/<span class="primary">library</span>/<span class="danger">node</span>:<span class="success">latest</span>
 <br/>
 <span class="warning">hub.docker.com</span>/<span class="primary">zbbfufu</span>/<span class="danger">node</span>:<span class="success">8.0</span>

@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Docker compose
 
 Notes:

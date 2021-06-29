@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Introduction
 
 ##--##
@@ -20,7 +18,6 @@ From IBM:
 > Docker is an open source containerization platform. It enables developers to package applications into containers—standardized executable components combining application source code with the operating system (OS) libraries and dependencies required to run that code in any environment. Containers simplify delivery of distributed applications, and have become increasingly popular as organizations shift to cloud-native development and hybrid multicloud environments.
 
 
-
 ## what does that even mean ?
 
 ##--##
@@ -33,13 +30,22 @@ From IBM:
 
 How do I install the application on the environment ? How I'm sure everything is setup ?
 
+##--##
+
+<!-- .slide: class="sfeir-bg-white-1" -->
+# What problem does it solve ?
 
 ## Isolation
 > I have a second application, it needs a different java version (11), and run on port 8080
 
 Will there be conflict problems if I install them both on the same machine ?
 
-Also: horror stories with updates 
+
+
+##--##
+
+<!-- .slide: class="sfeir-bg-white-1" -->
+# What problem does it solve ?
 
 ## Scaling
 > Incoming traffic varies, and can't handle the load on a single machine

@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Getting started
 
 
@@ -185,23 +183,6 @@ docker image prune
 
 ##--##
 
-<!-- .slide: class="sfeir-bg-white-2" -->
-
-# Conclusion
-
-<!-- Shit conclusion <div class="full-center">
-<img src="./assets/images/getting_started/conclusion.png" width="65%" alt="">
-</div>
-
-Notes:
-Pour récapituler :
-
-* docker en docker client ⇒ docker daemon
-* **image pull** récupère une image d’une registry vers le daemon
-* **container run** instancie un container à partir d’une image -->
-
-##--##
-
 <!-- .slide: class="sfeir-bg-white-2 d-with-code-dark big-code" -->
 
 # Images **vs** containers
@@ -238,31 +219,6 @@ IMPORTANT !
 * One **packages** software inside an **Image** ( ~= Java class)
 * On **execute** a process inside a **Container** ( ~= instance )
 
-##--##
-
-<!-- .slide: class="sfeir-bg-white-2" -->
-
-# Docker Store et Registry
-
-<div class="left">
-<div class="box">
-Docker Hub / Docker Store
-![h-700 center](./assets/images/getting_started/docker_store.jpg)
-</div>
-</div>
-<div class="right">
-<div class="box">
-Kitematic
-![h-700 center](./assets/images/getting_started/kitematic.jpg)
-</div>
-</div>
-
-Notes:
-Les images sont stockées dans une registry
-
-Registry publique : *Kitematic* == *Docker Store* (images officielles vendors aprouvés) == *Docker Hub* (communautaire)
-
-Registry privées : gcr.io sur la *GCP*, *Nexus 3*, *Artifactory*, *Docker EE*, …
 ##--##
 
 

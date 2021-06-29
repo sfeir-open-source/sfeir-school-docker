@@ -1,5 +1,3 @@
-<!-- .slide: class="transition-white sfeir-bg-blue" -->
-
 # Dockerfile
 
 ##--##
@@ -278,25 +276,23 @@ VOLUME /myVolume
 
 Notes: The volume is a declaration and is not mounted during build time. It will be mounted once the image is built and you `docker run` a container from it
 
-Notes:
-Attention les volumes utilisés dans les Dockerfile sont du type “anonyme”
-
-Changing the volume from within the Dockerfile: If any build steps change the data within the volume after it has been declared, those changes will be discarded.
-
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
 
 # WORKDIR
 
-* **WORKDIR** changes the **current directory** where the next instructions will be run:
+**WORKDIR** changes the **current directory** where the next instructions will be run:
+
   * RUN
   * CMD
   * ENTRYPOINT
   * COPY
   * ADD
 
-* It's use as such:
+<br />
+
+Syntax:
 
 ```dockerfile
 WORKDIR /opt
@@ -314,6 +310,7 @@ WORKDIR /opt
   * ENTRYPOINT
 * This instruction **DOES NOT CREATE** a new user in the system.
 * You can create a new user with this linux command: `RUN useradd -ms /bin/bash newuser`
+* Syntax is:
 
 ```dockerfile
 USER webserver:application
@@ -376,33 +373,35 @@ pour les interactions entre les deux instructions
 
 # Your first image
 
-Exercuse 14 <!-- .element: class="exo" -->
+Exercise 14 <!-- .element: class="exo" -->
 
-* Allez dans le dossier **docker-sfeirschool-2018/back**.
-  Construisez et taggez (**-t**)  l’image décrite par le fichier **Dockerfile** :
+* go into **assignment-material/back**.
+
+  Build and tag (**-t**) the image describe in the **Dockerfile** :
 
 ```docker
-docker image build -t <dockerId>/docker-sfeir-back:1.0 .
+docker image build -t <dockerId>/docker-training-back:1.0 .
 ```
 
-![dot_important](./assets/images/dockerfile/dot_important.png) <!-- .element: style="margin-left: 18.5rem;" -->
+*Don't forget the dot !* <!-- .element: style="margin-left: 25.5rem;" -->
 
-* Publiez votre image sur le Hub Docker :
+* Publish your image on Docker Hub :
 
 ```docker
-docker image push <dockerId>/docker-sfeir-back:1.0
+docker image push <dockerId>/docker-training-back:1.0
 ```
 
 ##--##
 
 <!-- .slide: class="sfeir-bg-white-1" -->
 
-# Optimiser your Dockerfile
+# Optimise your Dockerfiles
 
 * Objective: minimize an image size footprint
 * An application should contain only its binary/program and its dependencies, no more
 
-=> What when the dependencies needed to build (maven, go) are not the same needed to run (jdk ...)
+<br />
+=> *What when the dependencies needed to build (maven, go) are not the same needed to run (jdk ...)*
 
 
 Notes:
@@ -458,7 +457,7 @@ Malheureusement, pour passer les binaires d’une image à l’autre il fallait 
 
 # Now we can combine those...
 
-## <span class="border">➡ le **Multi stage build**</span>
+## <span class="border">➡ The **Multi stage build**</span>
 
 ```dockerfile
 FROM golang:1.7.3 as builder
@@ -489,7 +488,7 @@ Exercise 14b <!-- .element: class="exo" -->
 * Run the *container* :
 
 ```docker
-docker run -ti --rm -p 9000:9000 <dockerId>/docker-sfeir-back:1.0
+docker run -ti --rm -p 9000:9000 <dockerId>/docker-training-back:1.0
 ```
 
 ![center](./assets/images/dockerfile/docker_run_server.png)
