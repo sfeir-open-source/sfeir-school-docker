@@ -97,3 +97,32 @@ Manifests:
 - redirect using the docker daemon
 
 Speaker **Thibauld**
+
+
+##--##
+
+# Layer in Docker 
+
+## Images and tags 
+
+* Image ID = sha256 of the content
+* Tag
+  * Image identification
+  * Find the registry origin
+
+Pattern:
+
+`[[registry url/]]username/]image[:tag|@sha256]`
+
+Example: 
+
+```
+hub.docker.com/library/node:latest
+hub.docker.com/zbbfufu/node:8.0
+registry.sfeir.com:9000/taiebm/cordova:5.0-test
+```
+
+Notes: 
+
+Speaker **Thibauld**
+

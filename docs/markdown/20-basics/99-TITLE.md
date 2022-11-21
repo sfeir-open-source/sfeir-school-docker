@@ -2,7 +2,7 @@
 
 # Exercices
 
-## TODO
+## Docker basics
 
 Notes:
 

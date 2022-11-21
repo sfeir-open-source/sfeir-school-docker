@@ -1,6 +1,6 @@
 <!-- .slide: class="exercice" -->
 
-# TODO
+# TODO REMOVE
 
 ## Lab 1
 
