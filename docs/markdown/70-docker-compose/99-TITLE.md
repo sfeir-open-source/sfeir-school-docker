@@ -2,7 +2,7 @@
 
 # Exercices
 
-## TODO
+## Create a docker-compose file
 
 Notes:
 
