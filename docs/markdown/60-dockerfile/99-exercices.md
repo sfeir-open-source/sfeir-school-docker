@@ -1,6 +1,10 @@
 <!-- .slide: class="exercice" -->
 
-# TODO
+# Create a dockerfile
+
+Create your first dockerfile using a python application: flask.
+
+### [Start](https://github.com/sfeir-open-source/sfeir-school-docker/tree/main/steps/50-dockerfile)
 
 ## Lab 1
 

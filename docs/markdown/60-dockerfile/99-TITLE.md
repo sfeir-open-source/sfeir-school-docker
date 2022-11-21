@@ -2,7 +2,7 @@
 
 # Exercices
 
-## TODO
+## Create a dockerfile
 
 Notes:
 
