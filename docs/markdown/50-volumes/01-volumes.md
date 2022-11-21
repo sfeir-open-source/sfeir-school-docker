@@ -44,9 +44,9 @@ Speaker **Thibauld**
 -v myvol:/app
 ```
 
-- Docker handle the save location 
+- Docker handle the storage location 
 - Directory as a mounting point in linux 
-- The user don't have to handle it (expect for clean issue)
+- The user don't have to handle it (expect for cleaning issues)
 - Can use a custom name
 
 Notes:

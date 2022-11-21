@@ -205,7 +205,7 @@ ENV environment=”development”
 RUN pass secrets/${environment}/${application}
 ```
 
-* You can set/override at run
+* You can set/override at run time
 
 ```docker
 docker container run -e environment=”development” busybox

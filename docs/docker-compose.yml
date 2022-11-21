@@ -7,4 +7,4 @@ services:
     - .:/sources
     working_dir: /sources
     ports:
-    - 5000:5000
+    - 3000:3000

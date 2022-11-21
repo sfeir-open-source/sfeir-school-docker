@@ -11,7 +11,7 @@
 
 * Don’t bind to a specific UID
   * Don't make it a requirement eg. use **`/tmp`** to writte on container
-  * Some images use random UIDs when running containers
+  * Some runtimes use random UIDs when running containers
   * specific UID requires adjusting the permissions of any bind mount
 <!-- .element: class="list-fragment" -->
 
@@ -99,7 +99,7 @@ Speaker **Thibauld**
 
 * Use trusted base images
 * Update your images frequently
-* Expose only the ports mandatory
+* Expose only mandatory ports
 * Build context : prefere `docker build -t myimage files/` to `docker build -t myimage .`
 * use a .dockerignore file
 <!-- .element: class="list-fragment" -->
@@ -113,7 +113,7 @@ Speaker **Thibauld**
 ##--##
 <!-- .slide: -->
 
-## Best practices - layer 
+## Best practices - layer order
 
 
 Prefer:
@@ -149,9 +149,9 @@ Speaker **Thibauld**
 * Use specific image tag
 * Add metadata labels
 * Use Linter
-* Scanning for Security Vulnerabilities
+* Use a scanner to detect Security Vulnerabilities
 * Create Stateless, Reproducible Containers
-* NO TO LATEST TAG
+* SAY NO TO `LATEST` TAG
 <!-- .element: class="list-fragment" -->
 
 Notes:
