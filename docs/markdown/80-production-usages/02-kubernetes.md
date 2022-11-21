@@ -4,10 +4,10 @@
 
 ## Container Orchestration
 
-* automatically deploying
-* managing containers
-* orchestrate the connectivity
-* automatically scale up or down
+* deployment automation
+* Container management
+* Connectivity orchestration
+* Automatically scale up or down
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -23,7 +23,8 @@ Speaker **Thibauld**
 * Docker Swarm
 * Windows Containers
 * Kubernetes
-* Mesos
+* Mesos / Marathon
+* Nomad
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -38,7 +39,7 @@ Speaker **Thibauld**
 
 * Auto-scaling of infrastructure (vertical and horizontal scaling)
 * Automated Scheduling
-* easy rollbacks of application
+* Easy rollbacks of application
 * Self-healing
 * Highly available
 * Load balancing
@@ -138,7 +139,7 @@ Speaker **Thibauld**
 
 > Infrastructure as Code (IaC) is the managing and provisioning of infrastructure through code instead of through manual processes.
 
-* Declarative approaches
+* Declarative approach
 * Increase in speed of deployments
 * Reduce errors 
 * Improve infrastructure consistency

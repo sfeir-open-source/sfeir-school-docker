@@ -9,9 +9,9 @@ Images as code.
 ```Dockerfile[1,2|3,4|5,6|7,8|9,10|11,12|13-15]
 # Create image with you nodejs image (replace zbbfufu by your docker id)
 FROM zbbfufu/nodejs:1.0
-# Declare ports listening in the container
+# Declare listening ports in the container
 EXPOSE 9000
-# Define variables
+# Define environment variables
 ENV appDir=/app
 # Define current working directory (build & run)
 WORKDIR ${appDir}

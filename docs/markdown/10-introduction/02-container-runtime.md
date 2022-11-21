@@ -2,7 +2,7 @@
 
 # Container Runtimes 
 
-> Runtimes is responsible of create and run a container.
+> Runtimes are responsible of creating and running containers.
 
 Notes: 
 

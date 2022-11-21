@@ -8,7 +8,7 @@
   - Virtual network for docker application, isolated
   - `docker0` interface 
   - default
-- Host : `docker run busybox`
+- Host : `docker run --network host busybox`
   - host network, not isolated, can't bind same application on same port
 - none
 <!-- .element: class="list-fragment" -->
@@ -107,6 +107,7 @@ Notes:
 Use case example : “bastion”
 SSH only accessible from vpn or internal
 Tomcat exposed to 0.0.0.0
+By default, linux kernels prevents regular users to bind to ports < 1024
 
 Speaker **Thibauld**
 
@@ -122,8 +123,8 @@ Speaker **Thibauld**
 
 - On `docker create` or `docker run` commandes.
 - Must be on a free port
-- Can specified `tcp`or `upd` 
-- Can specified the interface/ip to use
+- Can specify `tcp` or `upd` 
+- Can specify the interface/ip to use
 
 Notes: 
 
