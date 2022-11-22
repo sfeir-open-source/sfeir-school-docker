@@ -20,5 +20,5 @@
    2. Why ?
 7. Create a new network named `busyboxtocouchdb`
 8. Connect `couchdb1` to the network with `docker network connect ...`
-9. Rerun busybox connected to the same network
+9. Re-run busybox connected to the same network
 10. Call `couchdb1:5984` with `wget` from busybox container

@@ -8,11 +8,11 @@ Use case :
 
 - Back end container (worker eg Java)
 - 2 différents databases 
-  - high throughput database (eg. Redis / Apache Cassandra)
-  - relational database (eg. myqsl / postgresql)
+  - High throughput database (eg. Redis / Apache Cassandra)
+  - Relational database (eg. myqsl / postgresql)
 - 2 applications
-  - to track whether someone is present in a meeting room reserved for a scheduled meeting
-  - to monitor data
+  - To track whether someone is present in a meeting room reserved for a scheduled meeting
+  - To monitor data
 
 ##--##
 
@@ -23,8 +23,8 @@ Use case :
 Notes:
 
 Think of docker-compose as :
-- an automated multi-container workflow
-- a tool for development, testing, CI workflows, and staging environments
+- An automated multi-container workflow
+- A tool for development, testing, CI workflows, and staging environments
 
 Speaker **Thibauld**
 

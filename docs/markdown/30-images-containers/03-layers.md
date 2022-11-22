@@ -85,7 +85,7 @@ Speaker **Thibauld**
     - Linux / ARM
     - Windows x86-64 
     - [And more](https://github.com/docker-library/official-images#architectures-other-than-amd64)
-* manifest for multi-os redirection 
+* Manifest for multi-os redirection 
 
 Notes: 
 

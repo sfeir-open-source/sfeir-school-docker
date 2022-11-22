@@ -12,7 +12,7 @@
 * Don’t bind to a specific UID
   * Don't make it a requirement eg. use **`/tmp`** to writte on container
   * Some runtimes use random UIDs when running containers
-  * specific UID requires adjusting the permissions of any bind mount
+  * Specific UID requires adjusting the permissions of any bind mount
 <!-- .element: class="list-fragment" -->
 
 * Make executables owned by root and not writable
@@ -34,7 +34,7 @@ Speaker **Thibauld**
 
 ## Best practices - image size
 
-* keep the images minimal
+* Keep the images minimal
   *  Excluding Build Tools with Multistage builds
   *  Avoid multiple `RUN` stage and prefere use of `&&` 
   *  Build image from [Alpine](https://hub.docker.com/_/alpine) or [Distroless](https://github.com/GoogleContainerTools/distroless) images
@@ -101,7 +101,7 @@ Speaker **Thibauld**
 * Update your images frequently
 * Expose only mandatory ports
 * Build context : prefere `docker build -t myimage files/` to `docker build -t myimage .`
-* use a .dockerignore file
+* Use a .dockerignore file
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -115,7 +115,6 @@ Speaker **Thibauld**
 
 ## Best practices - layer order
 
-
 Prefer:
 
 ```dockerfile
@@ -123,7 +122,6 @@ FROM ubuntu
 RUN apt-get install nodejs
 COPY source/* .
 ENTRYPOINT ["/usr/bin/node", "/main.js"]
-
 ```
 
 Instead of:

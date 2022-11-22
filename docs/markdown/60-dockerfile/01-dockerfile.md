@@ -91,7 +91,7 @@ Docker use a cache to be more performant unless you use `--no-cache=true` option
 Docker may invalid the cache in some case:
 - Comparison between the child image and the parent image
 - `ADD` and `COPY` instruction - use of the checksum
-- commit of a new transitive image
+- Commit of a new transitive image
 
 Cache check doesn't apply on internal file of the container.
 

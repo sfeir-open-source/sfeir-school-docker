@@ -4,7 +4,7 @@
 
 ## Container Orchestration
 
-* deployment automation
+* Deployment automation
 * Container management
 * Connectivity orchestration
 * Automatically scale up or down

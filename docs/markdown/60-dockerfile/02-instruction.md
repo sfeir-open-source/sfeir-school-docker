@@ -5,7 +5,7 @@
 ## ARG
 
 * **ARG** is used to pass argument to docker at image build 
-* define default value
+* Define default value
 
 ```dockerfile
 FROM busybox
@@ -47,14 +47,14 @@ Speaker **Thibauld**
 ## LABEL
 
 * **LABEL** allows to set metadatas for a Docker image
-* metadatas are set as key value pair.
+* Metadatas are set as key value pair.
 
 ```dockerfile
 LABEL maintainer="Sophie FONFEC"
 LABEL version=1.0.0
 ```
 
-* we can **inspect** labels using the `inspect` command
+* **Inspect** labels using the `inspect` command
 
 ```docker
 docker inspect image
@@ -85,7 +85,7 @@ COPY file.txt /tmp/destination
 ADD application.tar /opt
 ```
 
-* by defaut copied file are owned by root. You can specified the user/group too as long as they already exist
+* By defaut copied file are owned by root. You can specified the user/group too as long as they already exist
  
 ```dockerfile
 COPY --chown=<user>:<group> <src> <dest>

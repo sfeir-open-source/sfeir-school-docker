@@ -15,7 +15,7 @@
 4. Mount the identified volume to busybox 
 5. Check files inside `/opt/couchdb/data`
 6. Stop couchdb
-7. delete the volume
+7. Delete the volume
 8. Check that the volume has been deleted
 
 ### Create a named volume
@@ -33,22 +33,22 @@
 
 1. Create a directory named `sidecar` with `mkdir`
 2. Run Busybox
-   1. command: `sh -c 'while true; do date >> /dck/date.log; sleep 1; done'`
-   2. volume to mount: `$(pwd)/sidecar:/dck`
-   3. name: `gen_date`
+   1. Command: `sh -c 'while true; do date >> /dck/date.log; sleep 1; done'`
+   2. Volume to mount: `$(pwd)/sidecar:/dck`
+   3. Name: `gen_date`
    4. State: detached
 3. Check the content of `sidecar/date.log` with `cat`
 4. Run Busybox
-   1. command: `tail -f /dck2/date.log`
-   2. volume to mount: `$(pwd)/sidecar:/dck2`
+   1. Command: `tail -f /dck2/date.log`
+   2. Volume to mount: `$(pwd)/sidecar:/dck2`
    3. State: attached
 5. Check content of `dck2/date.log` with `tail -f`
 6. Exit container
-7. run `docker kill gen_date`
+7. Run `docker kill gen_date`
    1. Why is the container stoped ?
 
 ### In memory 
 
 1. Run busybox with `--tmpfs /test`
-2. Chek with `mount | grep test` that tmpfs is used 
+2. Check with `mount | grep test` that tmpfs is used 
 

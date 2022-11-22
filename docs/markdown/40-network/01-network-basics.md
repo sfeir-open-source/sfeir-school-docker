@@ -10,9 +10,9 @@
   - default
 - Host : `docker run --network host busybox`
   - host network, not isolated, can't bind same application on same port
-- none
+- None
 <!-- .element: class="list-fragment" -->
-  - not attachd to any network, isolated
+  - Not attachd to any network, isolated
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -35,7 +35,7 @@ docker network create –-driver [bridge|overlay] -–subnet [subnet] NETWORK
 ```
 
 - Isolated container
-- multi-network container
+- Multi-network container
 
 Notes:
 
@@ -100,7 +100,7 @@ Speaker **Thibauld**
 - 1 : 1 assocation
 - Access container on **bridge** network
 - Bind any port from the **container** to any free port on **host**
-- can bind port on specifics interfaces/IP
+- Can bind port on specifics interfaces/IP
 
 Notes: 
 
@@ -137,7 +137,7 @@ Speaker **Thibauld**
 ## DNS
 
 - Embded DNS under the hood 
-- can refer to IP or container name
+- Can refer to IP or container name
 
 Notes: 
 

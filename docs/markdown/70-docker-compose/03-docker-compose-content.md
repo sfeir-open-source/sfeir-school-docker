@@ -15,7 +15,7 @@ services:
     ...
 ```
 
-* services refer to the container's configuration
+* `services` refer to the container's configuration
 
 Notes:
 
@@ -37,7 +37,7 @@ services:
     ...
 ```
 
-* image refer to the container's image to use
+* `image` refer to the container's image to use
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -57,7 +57,7 @@ services:
     ...
 ```
 
-* image can be replaced by **build** to use dockerfile
+* `image` can be replaced by **build** to use dockerfile
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -78,7 +78,7 @@ services:
     ...
 ```
 
-* both **image** and **build** to name the images build
+* Both **image** and **build** to name the images build
 <!-- .element: class="list-fragment" -->
 
 Notes:
@@ -222,14 +222,14 @@ services:
 ```
 <!-- .element: class="max-height" -->
 
-* using **.env** or **.properties** files (only work with `docker-compose up`) with `--env-file`
+* Using **.env** or **.properties** files (only work with `docker-compose up`) with `--env-file`
 
 ```.env
 POSTGRES_VERSION=alpine
 USER=foo
 ```
 
-* before running the command
+* Before running the command
 
 ```shell
 export POSTGRES_VERSION=alpine
