@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-docker build -t <dockerHubId>/my_flask:1.0 .
-docker push <dockerHubId>/my_flask:1.0
+docker-compose build
+# Build the images using the `build` from docker compose
 
-docker run -d -p 9090:9090 --name app --rm <dockerHubId>/my_flask:1.0
+docker-compose up -d
 
-curl localhost:9090
+curl localhost:9092
+# This is a sfeir school about Docker ! 
+# I have been seen 1 times.

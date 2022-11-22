@@ -5,7 +5,7 @@
 ## Service
 
 ```yaml
-version: "3.9"
+version: "3.9" # Deprecated
 services:
   frontend:
     ...
@@ -18,6 +18,9 @@ services:
 * services refer to the container's configuration
 
 Notes:
+
+Version is depracated but still present to maintain backwards compatibility
+It follow the [Docker Compose specification](https://docs.docker.com/compose/compose-file/)
 
 Speaker **Thibauld**
 
