@@ -1,58 +1,24 @@
-<!-- .slide: class="first-slide" sfeir-level="2" sfeir-techno="docker" -->
+<!-- .slide: class="first-slide" sfeir-level="3" sfeir-techno="DOCKER" -->
 
-# **Bienvenue à la Sfeir School**
+# **Welcome to SFEIR School**
 
-## **Docker 200**
+## **Docker**
 
-##==##
+Notes:
 
-<!-- .slide: class="school-presentation" -->
+Speaker **Thibauld**
 
-<div class="wifi">
-    <span class="key">wifi:</span><span>SSID</span><br>
-    <span class="key">mdp:</span><span>PWD_WIFI</span>
-</div>
+##--##
 
-##==##
+# Planning
 
-<!-- .slide: class="sfeir-bg-white-1 with-code big-code" -->
+* When are the breaks ?
+* When do we lunch ?
 
-# Préparation de la formation
+**Timesheet (Mandatory)** <!-- .element: class="center" -->
 
-<div class="center">
-  <img src="./assets/images/icon/terminal.png" alt="Terminal">
-</div>
+https://bit.ly/sfeir-xxx <!-- .element: class="center" -->
 
-```docker
-docker container run -ti --rm busybox echo Hello world
-```
+Notes:
 
-```bash
-git clone "https://github.com/zbbfufu/docker-sfeirschool-2018.git"
-cd docker-sfeirschool-2018
-```
-
-<p class="center">
-Créez un compte sur le Docker Hub
-<br><br>
-<a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">https://hub.docker.com/</a>
-<br><br>
-<img src="./assets/images/docker.png" alt="Docker">
-</p>
-
-##==##
-
-# Déroulement de la formation
-
-<p class="center">
-C'est quand la pause ?<br>
-Quand est-ce qu'on mange ?<br>
-Tour de table ...
-</p>
-<br><br>
-
-<p class="center">
-**Feuille de présence (obligatoire)**
-<br><br>
-https://bit.ly/sfeir-docker-202001
-</p>
+Speaker **Thibauld**

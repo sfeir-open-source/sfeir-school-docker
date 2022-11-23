@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    ports:
+      - "9092:9090"
+    networks:
+      - my-shared-network
+  redis:
+    image: "redis:alpine"
+    networks:
+      - my-shared-network
+networks:
+  my-shared-network: {}

@@ -1,39 +1,37 @@
 {
-  "name": "sfeirschooldocker",
+  "name": "sfeir-school-docker",
   "version": "1.0.0",
-  "description": "Sfeir School Docker with revealJS",
-  "main": "index.js",
-  "scripts": {
-    "sass": "node-sass ./scss/docker_200.scss -o ./css/ --source-map=true --watch=\"scss\" --recursive=\"scss\"",
-    "sass-once": "node-sass ./scss/xxx.scss -o ./css/ --source-map=true ",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "live-server --port=4242 --open=\"./index.html\" --watch=\"markdown/\"",
-    "dep": "mkdir -p libs/sfeir-school-theme && cp -R node_modules/sfeir-school-theme/dist libs/sfeir-school-theme",
-    "start": "parallelshell \"npm run serve\" \"npm run sass\""
-  },
+  "description": "Sfeir School Docker",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sfeir-open-source/sfeir-school-docker.git",
-    "directory": "docs"
+    "url": "git+https://github.com/sfeir-open-source/sfeir-school-docker.git"
   },
   "keywords": [
     "docker",
     "sfeir"
   ],
-  "author": "jefbinomed",
-  "license": "Attribution-NoDerivs 3.0 Unported",
+  "author": "sfeiriens",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sfeir-open-source/sfeir-school-docker/issues"
   },
-  "homepage": "https://github.com/sfeir-open-source/sfeir-school-docker#readme",
+  "homepage": "https://github.com/sfeir-open-source/sfeir-school-docker",
+  "scripts": {
+    "sass": "sass ./scss/slides.scss:./css/slides.css --source-map --watch",
+    "sass-once": "sass ./scss/slides.scss:./css/slides.css --source-map",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "live-server --port=4242 --open=\"./index.html\" --watch=\"markdown,scripts/\"",
+    "start": "parallelshell \"npm run serve\" \"npm run sass\"",
+    "prepare": "node ./scripts/dont-touch/prepare-script.js"
+  },
   "dependencies": {
-    "chokidar-cli": "^1.2.2",
-    "cpx": "^1.5.0",
-    "highlight.js": "^9.15.6",
+    "sfeir-school-theme": "^3.0.0-rc-2"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
     "live-server": "^1.2.1",
-    "node-sass": "^4.12.0",
-    "parallelshell": "3.0.1",
-    "reveal.js": "^3.8.0",
-    "sfeir-school-theme": "^1.0.0"
+    "sass": "^1.51.0",
+    "parallelshell": "3.0.2",
+    "shelljs": "^0.8.5"
   }
 }
